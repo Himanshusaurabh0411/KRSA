@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "DM Sans";
+  --font-display: "Oswald";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #faf9f6;
+  color: #1a1a2e;
+}
+
+.dark body {
+  background: #101225;
+  color: #f7f7fb;
+}
+
+::selection {
+  background: #e8500a;
+  color: #fff;
+}
+
+@layer components {
+  .section-pad {
+    @apply px-5 py-16 sm:px-8 lg:px-12 xl:px-16;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-7xl;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-orange/30 bg-orange/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-orange;
+  }
+
+  .panel {
+    @apply rounded-lg border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/5;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-orange px-5 py-3 text-sm font-bold text-white shadow-lg shadow-orange/20 transition hover:bg-[#d74606] focus:outline-none focus:ring-2 focus:ring-orange focus:ring-offset-2 dark:focus:ring-offset-[#101225];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 px-5 py-3 text-sm font-bold text-ink transition hover:border-navy hover:text-navy dark:border-white/20 dark:text-white dark:hover:border-white;
+  }
+}

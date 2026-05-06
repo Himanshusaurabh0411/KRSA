@@ -1,0 +1,17 @@
+{
+  "name": "krsa-platform",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/web",
+    "apps/api"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=@krsa/web",
+    "dev:web": "npm run dev --workspace=@krsa/web",
+    "dev:api": "npm run dev --workspace=@krsa/api",
+    "build": "npm run build --workspace=@krsa/web && npm run build --workspace=@krsa/api",
+    "lint": "npm run lint --workspace=@krsa/web",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  }
+}
