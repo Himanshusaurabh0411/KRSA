@@ -9,6 +9,7 @@ import {
   Goal,
   HeartPulse,
   Image as ImageIcon,
+  KeyRound,
   Medal,
   Megaphone,
   Newspaper,
@@ -119,8 +120,52 @@ export const portalRoles = [
   { title: "Super Admin", path: "/admin", access: "Full control of users, website, finances and reports.", icon: UserCheck },
   { title: "Coach Portal", path: "/portal/coach", access: "Manage assigned athlete batches, attendance and performance reports.", icon: Activity },
   { title: "Athlete Portal", path: "/portal/athlete", access: "View profile, training plan, achievements, notices and attendance.", icon: Trophy },
+  { title: "Student Portal", path: "/portal/student", access: "Student-facing view for training schedule, progress, certificates and notices.", icon: KeyRound },
   { title: "Parent Portal", path: "/portal/parent", access: "View ward progress, attendance, announcements and fee status.", icon: Users },
   { title: "SAI Reporting", path: "/portal/sai", access: "View KIT data, export NSRS reports and upload utilization documents.", icon: FileText }
+];
+
+export const loginRoles = [
+  {
+    title: "Admin Login",
+    role: "super_admin",
+    path: "/admin",
+    email: "admin@krsasports.in",
+    description: "For trustees and academy operations staff managing users, applications, media, reports and website content.",
+    icon: UserCheck
+  },
+  {
+    title: "Coach Login",
+    role: "coach",
+    path: "/portal/coach",
+    email: "coach@krsasports.in",
+    description: "For head coaches and trainers managing assigned athletes, attendance, schedules and performance reports.",
+    icon: Activity
+  },
+  {
+    title: "Student / Athlete Login",
+    role: "athlete",
+    path: "/portal/athlete",
+    email: "athlete@krsasports.in",
+    description: "For registered athletes and students viewing training plans, attendance, achievements and notices.",
+    icon: Trophy
+  },
+  {
+    title: "Parent Login",
+    role: "parent",
+    path: "/portal/parent",
+    email: "parent@krsasports.in",
+    description: "For parents and guardians viewing ward progress, attendance, notices and fee status.",
+    icon: Users
+  },
+  {
+    title: "SAI Login",
+    role: "sai_liaison",
+    path: "/portal/sai",
+    email: "sai@krsasports.in",
+    description: "For SAI/Khelo India reporting users viewing KIT data, UC documents and NSRS exports.",
+    icon: FileText
+  }
 ];
 
 export const adminModules = [

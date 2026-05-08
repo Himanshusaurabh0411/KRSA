@@ -66,7 +66,7 @@ export function SiteHeader() {
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-          <Link href="/admin" className="hidden items-center gap-2 rounded-md border border-white/15 px-4 py-2 text-sm font-bold text-white/80 transition hover:bg-white/10 sm:inline-flex">
+          <Link href="/login" className="hidden items-center gap-2 rounded-md border border-white/15 px-4 py-2 text-sm font-bold text-white/80 transition hover:bg-white/10 sm:inline-flex">
             <LogIn size={16} /> Login
           </Link>
           <Link href="/apply" className="rounded-md bg-orange px-4 py-2 text-sm font-bold shadow-lg shadow-orange/20 transition hover:bg-[#d74606] sm:inline-flex">
@@ -86,7 +86,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <Link href="/apply" onClick={() => setOpen(false)} className="rounded-md bg-orange px-3 py-2 text-sm font-bold text-white">Apply Now</Link>
-            <Link href="/admin" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:bg-white/10">Login</Link>
+            <Link href="/login" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:bg-white/10">Login</Link>
           </nav>
         </div>
       ) : null}

@@ -1,6 +1,24 @@
 import type { MetadataRoute } from "next";
 
-const routes = ["", "about", "sports", "khelo-india", "athletes", "tournaments", "gallery", "news", "apply", "contact"];
+const routes = [
+  "",
+  "about",
+  "sports",
+  "khelo-india",
+  "athletes",
+  "tournaments",
+  "gallery",
+  "news",
+  "apply",
+  "login",
+  "admin",
+  "portal/coach",
+  "portal/athlete",
+  "portal/student",
+  "portal/parent",
+  "portal/sai",
+  "contact"
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://krsasports.in";
