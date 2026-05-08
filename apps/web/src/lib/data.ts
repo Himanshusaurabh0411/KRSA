@@ -125,13 +125,6 @@ export const portalRoles = [
   { title: "SAI Reporting", path: "/portal/sai", access: "View KIT data, export NSRS reports and upload utilization documents.", icon: FileText }
 ];
 
-export const loginHighlights = [
-  { title: "One Credential Gateway", description: "A single secure portal for admin, coaches, students, athletes, parents and SAI users.", icon: KeyRound },
-  { title: "Automatic Role Routing", description: "After real accounts are connected, the backend will detect the role and open the correct dashboard.", icon: ShieldCheck },
-  { title: "Khelo India Reporting", description: "KIT attendance, performance, NSRS exports and documentation remain part of the authenticated portal.", icon: FileText },
-  { title: "Student Data Protection", description: "User records, payments, injury notes and coach messages stay behind authenticated access.", icon: ClipboardCheck }
-];
-
 export const adminModules = [
   { title: "Athlete Database", description: "Add, edit, archive, bulk import and export athlete records for NSRS reporting.", icon: Users },
   { title: "Tournament Management", description: "Create events, upload results, generate medal tallies and notify athletes.", icon: Medal },
