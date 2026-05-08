@@ -1,14 +1,18 @@
 import Link from "next/link";
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { academy, sports } from "@/lib/data";
+import { KheloIndiaLogo } from "@/components/official-brand";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-[#0f1228] px-5 py-12 text-white sm:px-8 lg:px-12 xl:px-16">
+    <footer className="bg-[#111126] px-5 py-12 text-white sm:px-8 lg:px-12 xl:px-16">
       <div className="container-wide grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <div className="mb-4 flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-white font-display text-sm font-bold text-navy">KR</span>
+          <div className="mb-4 flex flex-wrap items-center gap-3">
+            <span className="flex h-10 w-12 items-center justify-center rounded-md bg-white font-display text-xs font-bold text-navy">KRSA</span>
+            <span className="flex h-12 w-24 items-center rounded-md bg-white px-3 py-2">
+              <KheloIndiaLogo />
+            </span>
             <div>
               <p className="font-display text-lg font-bold uppercase">{academy.name}</p>
               <p className="text-xs uppercase tracking-[0.2em] text-orange">{academy.accreditation}</p>

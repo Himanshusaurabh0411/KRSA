@@ -26,7 +26,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="section-pad bg-white dark:bg-[#151833]">
+      <section className="section-pad bg-white dark:bg-[#181833]">
         <div className="container-wide">
           <SectionHeading eyebrow="Objectives" title="Trust-deed aligned academy objectives" />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

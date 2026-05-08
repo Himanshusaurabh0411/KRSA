@@ -58,7 +58,7 @@ export default function DashboardPage() {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="value" fill="#E8500A" radius={[6, 6, 0, 0]} />
+                    <Bar dataKey="value" fill="#F37031" radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>

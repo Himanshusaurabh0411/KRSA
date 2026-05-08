@@ -20,16 +20,16 @@ html {
 body {
   margin: 0;
   background: #faf9f6;
-  color: #1a1a2e;
+  color: #24243f;
 }
 
 .dark body {
-  background: #101225;
+  background: #111126;
   color: #f7f7fb;
 }
 
 ::selection {
-  background: #e8500a;
+  background: #f37031;
   color: #fff;
 }
 
@@ -39,7 +39,7 @@ body {
   top: -4rem;
   z-index: 100;
   border-radius: 0.375rem;
-  background: #e8500a;
+  background: #f37031;
   color: #fff;
   padding: 0.75rem 1rem;
   font-weight: 700;
@@ -68,7 +68,7 @@ body {
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-md bg-orange px-5 py-3 text-sm font-bold text-white shadow-lg shadow-orange/20 transition hover:bg-[#d74606] focus:outline-none focus:ring-2 focus:ring-orange focus:ring-offset-2 dark:focus:ring-offset-[#101225];
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-orange px-5 py-3 text-sm font-bold text-white shadow-lg shadow-orange/20 transition hover:bg-[#d85a24] focus:outline-none focus:ring-2 focus:ring-orange focus:ring-offset-2 dark:focus:ring-offset-[#111126];
   }
 
   .btn-secondary {

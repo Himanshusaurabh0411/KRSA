@@ -22,7 +22,7 @@ export default function SportsPage() {
           ))}
         </div>
       </section>
-      <section className="section-pad bg-white dark:bg-[#151833]">
+      <section className="section-pad bg-white dark:bg-[#181833]">
         <div className="container-wide">
           <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>

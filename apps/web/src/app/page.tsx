@@ -5,12 +5,13 @@ import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Play, ShieldCheck } from "lucide-react";
 import { academy, athletes, galleryItems, news, sports, stats, tournaments } from "@/lib/data";
 import { SectionHeading } from "@/components/section-heading";
+import { KheloIndiaLogo } from "@/components/official-brand";
 
 export default function HomePage() {
   return (
     <main>
       <section className="relative overflow-hidden bg-navy px-5 py-20 text-white sm:px-8 lg:px-12 xl:px-16">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(232,80,10,0.28),transparent_28%),linear-gradient(135deg,#2E3576_0%,#161a43_68%,#0f1228_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#303056_0%,#242447_62%,#111126_100%)]" />
         <div className="container-wide relative grid min-h-[620px] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <span className="eyebrow"><ShieldCheck size={14} /> {academy.accreditation}</span>
@@ -20,6 +21,14 @@ export default function HomePage() {
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">
               {academy.designationHi} | {academy.designationEn}. A Delhi grassroots sports academy aligned with SAI/Khelo India reporting, athlete development and public trust.
             </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <span className="flex h-16 w-32 items-center rounded-md bg-white px-4 py-2 shadow-sm">
+                <KheloIndiaLogo priority />
+              </span>
+              <span className="rounded-md border border-white/15 px-4 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white/70">
+                Official logo colours retained as per branding guidelines
+              </span>
+            </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/apply" className="btn-primary">Join KRSA <ArrowRight size={18} /></Link>
               <Link href="/gallery" className="btn-secondary border-white/25 text-white hover:border-white"><Play size={18} /> Watch Our Story</Link>
@@ -41,7 +50,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#0f1228] px-5 py-5 text-white sm:px-8 lg:px-12 xl:px-16">
+      <section className="bg-[#111126] px-5 py-5 text-white sm:px-8 lg:px-12 xl:px-16">
         <div className="container-wide grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((item) => (
             <div key={item.label} className="text-center">
@@ -52,7 +61,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="sports" className="section-pad bg-cream dark:bg-[#101225]">
+      <section id="sports" className="section-pad bg-cream dark:bg-[#111126]">
         <div className="container-wide">
           <SectionHeading eyebrow="Sports Offered" title="Grassroots sports pathways for Delhi NCR athletes" copy="Each sport card includes batch timing and coach ownership, matching the brief's public sports discovery flow." />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
@@ -71,7 +80,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-pad bg-white dark:bg-[#151833]">
+      <section className="section-pad bg-white dark:bg-[#181833]">
         <div className="container-wide">
           <SectionHeading eyebrow="Featured Athletes" title="Public athlete spotlights and achievement visibility" />
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -89,7 +98,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-pad bg-cream dark:bg-[#101225]">
+      <section className="section-pad bg-cream dark:bg-[#111126]">
         <div className="container-wide grid gap-10 lg:grid-cols-[1fr_360px]">
           <div>
             <SectionHeading eyebrow="News & Updates" title="Announcements, reports and academy notices" />
@@ -129,7 +138,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-pad bg-white dark:bg-[#151833]">
+      <section className="section-pad bg-white dark:bg-[#181833]">
         <div className="container-wide">
           <SectionHeading eyebrow="Gallery" title="Training, tournaments and ceremonies" />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

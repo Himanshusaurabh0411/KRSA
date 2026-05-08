@@ -6,10 +6,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: "#2E3576",
-        orange: "#E8500A",
-        green: "#3AAA35",
-        ink: "#1A1A2E",
+        navy: "#303056",
+        orange: "#F37031",
+        green: "#5AB051",
+        ink: "#24243F",
         muted: "#6B7080",
         cream: "#FAF9F6"
       },

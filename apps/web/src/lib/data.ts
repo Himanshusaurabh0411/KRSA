@@ -125,47 +125,11 @@ export const portalRoles = [
   { title: "SAI Reporting", path: "/portal/sai", access: "View KIT data, export NSRS reports and upload utilization documents.", icon: FileText }
 ];
 
-export const loginRoles = [
-  {
-    title: "Admin Login",
-    role: "super_admin",
-    path: "/admin",
-    email: "admin@krsasports.in",
-    description: "For trustees and academy operations staff managing users, applications, media, reports and website content.",
-    icon: UserCheck
-  },
-  {
-    title: "Coach Login",
-    role: "coach",
-    path: "/portal/coach",
-    email: "coach@krsasports.in",
-    description: "For head coaches and trainers managing assigned athletes, attendance, schedules and performance reports.",
-    icon: Activity
-  },
-  {
-    title: "Student / Athlete Login",
-    role: "athlete",
-    path: "/portal/athlete",
-    email: "athlete@krsasports.in",
-    description: "For registered athletes and students viewing training plans, attendance, achievements and notices.",
-    icon: Trophy
-  },
-  {
-    title: "Parent Login",
-    role: "parent",
-    path: "/portal/parent",
-    email: "parent@krsasports.in",
-    description: "For parents and guardians viewing ward progress, attendance, notices and fee status.",
-    icon: Users
-  },
-  {
-    title: "SAI Login",
-    role: "sai_liaison",
-    path: "/portal/sai",
-    email: "sai@krsasports.in",
-    description: "For SAI/Khelo India reporting users viewing KIT data, UC documents and NSRS exports.",
-    icon: FileText
-  }
+export const loginHighlights = [
+  { title: "One Credential Gateway", description: "A single secure portal for admin, coaches, students, athletes, parents and SAI users.", icon: KeyRound },
+  { title: "Automatic Role Routing", description: "After real accounts are connected, the backend will detect the role and open the correct dashboard.", icon: ShieldCheck },
+  { title: "Khelo India Reporting", description: "KIT attendance, performance, NSRS exports and documentation remain part of the authenticated portal.", icon: FileText },
+  { title: "Student Data Protection", description: "User records, payments, injury notes and coach messages stay behind authenticated access.", icon: ClipboardCheck }
 ];
 
 export const adminModules = [
