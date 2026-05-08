@@ -1,5 +1,19 @@
 import { Schema, model } from "mongoose";
 
+export const Sport = model(
+  "Sport",
+  new Schema(
+    {
+      name: { type: String, required: true, unique: true },
+      nameHi: String,
+      iconUrl: String,
+      description: String,
+      isActive: { type: Boolean, default: true }
+    },
+    { timestamps: true }
+  )
+);
+
 export const Program = model(
   "Program",
   new Schema(
@@ -47,6 +61,29 @@ export const Student = model(
   )
 );
 
+export const Athlete = model(
+  "Athlete",
+  new Schema(
+    {
+      user: { type: Schema.Types.ObjectId, ref: "User" },
+      name: { type: String, required: true, index: true },
+      sport: { type: Schema.Types.ObjectId, ref: "Sport", required: true },
+      batch: { type: Schema.Types.ObjectId, ref: "Batch" },
+      coach: { type: Schema.Types.ObjectId, ref: "Coach" },
+      dob: Date,
+      gender: { type: String, enum: ["female", "male", "other"] },
+      address: String,
+      aadhaarLast4: String,
+      kitStatus: { type: Boolean, default: false, index: true },
+      photoUrl: String,
+      bio: String,
+      achievements: [{ type: Schema.Types.ObjectId, ref: "Achievement" }],
+      archivedAt: Date
+    },
+    { timestamps: true }
+  )
+);
+
 export const Batch = model(
   "Batch",
   new Schema(
@@ -76,8 +113,30 @@ export const Admission = model(
       previousExperience: String,
       medicalNotes: String,
       documents: [{ filename: String, path: String, mimetype: String }],
-      status: { type: String, enum: ["new", "approved", "rejected", "waitlisted"], default: "new", index: true },
+      status: { type: String, enum: ["new", "under_review", "shortlisted", "approved", "rejected", "waitlisted"], default: "new", index: true },
       reviewedBy: { type: Schema.Types.ObjectId, ref: "User" }
+    },
+    { timestamps: true }
+  )
+);
+
+export const Application = model(
+  "Application",
+  new Schema(
+    {
+      name: { type: String, required: true },
+      sport: { type: Schema.Types.ObjectId, ref: "Sport" },
+      dob: Date,
+      gender: { type: String, enum: ["female", "male", "other"] },
+      school: String,
+      aadhaarLast4: String,
+      guardianName: String,
+      guardianPhone: String,
+      address: String,
+      status: { type: String, enum: ["new", "under_review", "shortlisted", "approved", "rejected", "waitlisted"], default: "new", index: true },
+      documents: [{ docType: String, filename: String, path: String, mimetype: String, verified: { type: Boolean, default: false } }],
+      reviewedBy: { type: Schema.Types.ObjectId, ref: "User" },
+      convertedAthlete: { type: Schema.Types.ObjectId, ref: "Athlete" }
     },
     { timestamps: true }
   )

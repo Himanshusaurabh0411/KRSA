@@ -9,8 +9,15 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://krsasports.in"),
   title: "KRSA | Krishna Rattan Sports Academy",
-  description: "Khelo India accredited sports academy management platform for admissions, coaching, performance, schedules, and payments."
+  description: "Official website and athlete management portal for Krishna Rattan Sports Academy, a Khelo India Accredited Academy in Wazirabad, Delhi.",
+  keywords: ["sports academy Delhi", "Khelo India academy Wazirabad", "sports coaching Delhi", "KRSA", "Krishna Rattan Sports Academy"],
+  openGraph: {
+    title: "Krishna Rattan Sports Academy",
+    description: "Khelo India Accredited Academy in Wazirabad, Delhi.",
+    type: "website"
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -18,8 +25,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" suppressHydrationWarning>
       <body className={`${dmSans.variable} ${oswald.variable} font-sans antialiased`}>
         <ThemeProvider>
+          <a href="#main-content" className="skip-link">Skip to main content</a>
           <SiteHeader />
-          {children}
+          <div id="main-content">{children}</div>
           <SiteFooter />
         </ThemeProvider>
       </body>

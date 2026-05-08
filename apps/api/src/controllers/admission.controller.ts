@@ -34,7 +34,7 @@ export const listAdmissions = asyncHandler(async (_req, res) => {
 });
 
 export const updateAdmissionStatus = asyncHandler(async (req: AuthRequest, res) => {
-  const body = z.object({ status: z.enum(["new", "approved", "rejected", "waitlisted"]) }).parse(req.body);
+  const body = z.object({ status: z.enum(["new", "under_review", "shortlisted", "approved", "rejected", "waitlisted"]) }).parse(req.body);
   const admission = await Admission.findByIdAndUpdate(req.params.id, { status: body.status, reviewedBy: req.user?.id }, { new: true });
   res.json({ admission });
 });

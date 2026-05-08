@@ -11,7 +11,7 @@ const registerSchema = z.object({
   email: z.string().email(),
   phone: z.string().optional(),
   password: z.string().min(8),
-  role: z.enum(["admin", "coach", "student"]).default("student")
+  role: z.enum(["super_admin", "academy_admin", "head_coach", "coach", "athlete", "parent", "sai_liaison", "admin", "student"]).default("athlete")
 });
 
 const loginSchema = z.object({

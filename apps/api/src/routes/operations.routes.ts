@@ -20,20 +20,20 @@ import {
 import { authenticate, authorize } from "../middleware/auth.js";
 
 export const attendanceRouter = Router();
-attendanceRouter.get("/", authenticate, authorize("admin", "coach"), listAttendance);
-attendanceRouter.post("/", authenticate, authorize("admin", "coach"), createAttendance);
+attendanceRouter.get("/", authenticate, authorize("super_admin", "academy_admin", "head_coach", "coach", "admin"), listAttendance);
+attendanceRouter.post("/", authenticate, authorize("super_admin", "academy_admin", "head_coach", "coach", "admin"), createAttendance);
 
 export const performanceRouter = Router();
 performanceRouter.get("/", authenticate, listPerformanceReports);
-performanceRouter.post("/", authenticate, authorize("admin", "coach"), createPerformanceReport);
+performanceRouter.post("/", authenticate, authorize("super_admin", "academy_admin", "head_coach", "coach", "admin"), createPerformanceReport);
 
 export const injuryRouter = Router();
 injuryRouter.get("/", authenticate, listInjuries);
-injuryRouter.post("/", authenticate, authorize("admin", "coach"), createInjury);
+injuryRouter.post("/", authenticate, authorize("super_admin", "academy_admin", "head_coach", "coach", "admin"), createInjury);
 
 export const announcementRouter = Router();
 announcementRouter.get("/", authenticate, listAnnouncements);
-announcementRouter.post("/", authenticate, authorize("admin", "coach"), createAnnouncement);
+announcementRouter.post("/", authenticate, authorize("super_admin", "academy_admin", "head_coach", "coach", "admin"), createAnnouncement);
 
 export const chatRouter = Router();
 chatRouter.get("/threads", authenticate, listChatThreads);
@@ -47,6 +47,6 @@ paymentRouter.post("/verify", authenticate, verifyPayment);
 paymentRouter.post("/webhook", razorpayWebhook);
 
 export const analyticsRouter = Router();
-analyticsRouter.get("/admin", authenticate, authorize("admin"), adminAnalytics);
-analyticsRouter.get("/student", authenticate, authorize("student", "admin"), adminAnalytics);
-analyticsRouter.get("/coach", authenticate, authorize("coach", "admin"), adminAnalytics);
+analyticsRouter.get("/admin", authenticate, authorize("super_admin", "academy_admin", "admin"), adminAnalytics);
+analyticsRouter.get("/student", authenticate, authorize("athlete", "student", "super_admin", "academy_admin", "admin"), adminAnalytics);
+analyticsRouter.get("/coach", authenticate, authorize("head_coach", "coach", "super_admin", "academy_admin", "admin"), adminAnalytics);

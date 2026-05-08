@@ -1,6 +1,6 @@
 import { Schema, model, type InferSchemaType } from "mongoose";
 
-export type UserRole = "admin" | "coach" | "student";
+export type UserRole = "super_admin" | "academy_admin" | "head_coach" | "coach" | "athlete" | "parent" | "sai_liaison" | "admin" | "student";
 
 const userSchema = new Schema(
   {
@@ -8,7 +8,12 @@ const userSchema = new Schema(
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     phone: { type: String, trim: true },
     passwordHash: { type: String, required: true, select: false },
-    role: { type: String, enum: ["admin", "coach", "student"], default: "student", index: true },
+    role: {
+      type: String,
+      enum: ["super_admin", "academy_admin", "head_coach", "coach", "athlete", "parent", "sai_liaison", "admin", "student"],
+      default: "athlete",
+      index: true
+    },
     avatarUrl: String,
     status: { type: String, enum: ["active", "inactive", "suspended"], default: "active" }
   },

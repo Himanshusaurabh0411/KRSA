@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { academy, programs } from "@/lib/data";
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { academy, sports } from "@/lib/data";
 
 export function SiteFooter() {
   return (
@@ -10,28 +11,44 @@ export function SiteFooter() {
             <span className="flex h-10 w-10 items-center justify-center rounded-md bg-white font-display text-sm font-bold text-navy">KR</span>
             <div>
               <p className="font-display text-lg font-bold uppercase">{academy.name}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-orange">{academy.status}</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-orange">{academy.accreditation}</p>
             </div>
           </div>
-          <p className="max-w-xl text-sm leading-6 text-white/55">{academy.address}. Built for admissions, athlete development, academy operations, and trusted communication.</p>
+          <p className="max-w-xl text-sm leading-6 text-white/55">{academy.address}. {academy.designationHi} | {academy.designationEn}.</p>
+          <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.16em] text-white/60">
+            <span className="rounded bg-white/10 px-3 py-2">KRSA</span>
+            <span className="rounded bg-white/10 px-3 py-2">Khelo India</span>
+            <span className="rounded bg-white/10 px-3 py-2">SAI</span>
+            <span className="rounded bg-white/10 px-3 py-2">MYAS</span>
+          </div>
         </div>
         <div>
-          <p className="mb-4 font-display text-lg font-semibold">Programs</p>
+          <p className="mb-4 font-display text-lg font-semibold">Sports</p>
           <div className="grid gap-2 text-sm text-white/55">
-            {programs.slice(0, 4).map((program) => (
-              <Link key={program.title} href="/programs" className="hover:text-white">{program.title}</Link>
+            {sports.map((sport) => (
+              <Link key={sport.name} href="/sports" className="hover:text-white">{sport.name}</Link>
             ))}
           </div>
         </div>
         <div>
-          <p className="mb-4 font-display text-lg font-semibold">Platform</p>
+          <p className="mb-4 font-display text-lg font-semibold">Quick Links</p>
           <div className="grid gap-2 text-sm text-white/55">
-            <Link href="/dashboard" className="hover:text-white">Dashboards</Link>
-            <Link href="/schedule" className="hover:text-white">Training Schedule</Link>
-            <Link href="/payments" className="hover:text-white">Payments</Link>
+            <Link href="/khelo-india" className="hover:text-white">Khelo India</Link>
+            <Link href="/athletes" className="hover:text-white">Athletes</Link>
+            <Link href="/tournaments" className="hover:text-white">Tournaments</Link>
+            <Link href="/apply" className="hover:text-white">Apply</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>
           </div>
+          <div className="mt-6 flex gap-3 text-white/60">
+            <Youtube size={18} aria-label="YouTube" />
+            <Instagram size={18} aria-label="Instagram" />
+            <Facebook size={18} aria-label="Facebook" />
+            <Twitter size={18} aria-label="Twitter/X" />
+          </div>
         </div>
+      </div>
+      <div className="container-wide mt-10 border-t border-white/10 pt-5 text-xs text-white/35">
+        Copyright KRSA. Privacy Policy | Terms. Recommended domain: {academy.domain}
       </div>
     </footer>
   );

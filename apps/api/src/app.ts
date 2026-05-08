@@ -7,6 +7,7 @@ import { env } from "./config/env.js";
 import { admissionRouter } from "./routes/admission.routes.js";
 import { authRouter } from "./routes/auth.routes.js";
 import { batchRouter, programRouter, userManagementRouter } from "./routes/academy.routes.js";
+import { applicationsRouter, athletesRouter, galleryRouter, newsRouter, saiRouter, sportsRouter, tournamentsRouter } from "./routes/content.routes.js";
 import {
   analyticsRouter,
   announcementRouter,
@@ -31,6 +32,13 @@ app.get("/health", (_req, res) => res.json({ status: "ok", service: "krsa-api" }
 app.use("/api/auth", authRouter);
 app.use("/api/admissions", admissionRouter);
 app.use("/api/programs", programRouter);
+app.use("/api/sports", sportsRouter);
+app.use("/api/athletes", athletesRouter);
+app.use("/api/applications", applicationsRouter);
+app.use("/api/tournaments", tournamentsRouter);
+app.use("/api/news", newsRouter);
+app.use("/api/gallery", galleryRouter);
+app.use("/api/sai", saiRouter);
 app.use("/api/batches", batchRouter);
 app.use("/api/users", userManagementRouter);
 app.use("/api/attendance", attendanceRouter);

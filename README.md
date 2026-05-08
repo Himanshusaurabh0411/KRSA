@@ -1,6 +1,6 @@
 # Krishna Rattan Sports Academy Platform
 
-Production-oriented monorepo for KRSA: a premium public website, role-based dashboards, admissions, schedules, performance, payments, and an Express/MongoDB backend.
+Production-oriented monorepo for KRSA: a Khelo India/SAI aligned public website, athlete portals, admissions, tournament/news/gallery management, SAI reporting, schedules, performance, payments, and an Express/MongoDB backend.
 
 ## Architecture
 
@@ -40,6 +40,15 @@ Admissions:
 - `PATCH /api/admissions/:id/status`
 
 Academy operations:
+- `GET /api/sports`, `POST /api/sports`
+- `GET /api/athletes`, `POST /api/athletes`, `PATCH /api/athletes/:id/archive`
+- `POST /api/athletes/:id/achievements`
+- `GET /api/applications`, `POST /api/applications`, `PATCH /api/applications/:id/status`
+- `GET /api/tournaments`, `POST /api/tournaments`
+- `GET /api/news`, `POST /api/news`
+- `GET /api/gallery`, `POST /api/gallery`
+- `GET /api/sai/documents`, `POST /api/sai/documents`
+- `GET /api/sai/export/nsrs`
 - `GET /api/programs`, `POST /api/programs`
 - `GET /api/batches`, `POST /api/batches`
 - `GET /api/attendance`, `POST /api/attendance`
