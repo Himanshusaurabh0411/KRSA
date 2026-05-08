@@ -21,12 +21,9 @@ export default function HomePage() {
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">
               {academy.designationHi} | {academy.designationEn}. A Delhi grassroots sports academy aligned with SAI/Khelo India reporting, athlete development and public trust.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <span className="flex h-16 w-32 items-center rounded-md bg-white px-4 py-2 shadow-sm">
+            <div className="mt-6 flex items-center">
+              <span className="flex h-16 w-36 items-center rounded-md bg-white px-4 py-2 shadow-sm">
                 <KheloIndiaLogo priority />
-              </span>
-              <span className="rounded-md border border-white/15 px-4 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white/70">
-                Official logo colours retained as per branding guidelines
               </span>
             </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">

@@ -13,12 +13,9 @@ export default function KheloIndiaPage() {
       <section className="section-pad">
         <div className="container-wide grid gap-8 lg:grid-cols-[1fr_380px]">
           <div className="panel p-6 md:p-8">
-            <div className="mb-6 flex flex-wrap items-center gap-4">
+            <div className="mb-6 flex items-center">
               <span className="flex h-20 w-40 items-center rounded-md bg-white px-4 py-3 shadow-sm">
                 <KheloIndiaLogo />
-              </span>
-              <span className="rounded-md border border-orange/25 bg-orange/10 px-4 py-3 text-xs font-bold uppercase tracking-[0.16em] text-orange">
-                Original colours preserved
               </span>
             </div>
             <ShieldCheck className="text-orange" size={34} />
