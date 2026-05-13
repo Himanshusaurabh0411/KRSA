@@ -39,6 +39,16 @@ export const academy = {
   primaryObligation: "Training of Khelo India Talent (KIT) athletes with full reporting to SAI/NSRS"
 };
 
+export const owner = {
+  name: "Mukesh Kalia",
+  title: "Owner",
+  role: "Academy leadership and basketball development",
+  photoUrl: "/people/mukesh-kalia.jpeg",
+  bio:
+    "Mukesh Kalia leads Krishna Rattan Sports Academy with a focus on disciplined basketball training, grassroots athlete development and transparent Khelo India academy operations. His vision is to create a reliable pathway where young players from Delhi can train with structure, values and long-term support.",
+  focus: ["Basketball pathway", "Khelo India compliance", "Grassroots athlete support"]
+};
+
 export const stats = [
   { label: "Athletes Trained", value: "486+" },
   { label: "Approved Sport", value: "1" },

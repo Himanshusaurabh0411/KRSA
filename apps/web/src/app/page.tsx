@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Play, ShieldCheck } from "lucide-react";
-import { academy, athletes, galleryItems, news, sports, stats, tournaments } from "@/lib/data";
+import { academy, athletes, galleryItems, news, owner, sports, stats, tournaments } from "@/lib/data";
 import { SectionHeading } from "@/components/section-heading";
 import { KheloIndiaLogo } from "@/components/official-brand";
 
@@ -56,6 +57,54 @@ export default function HomePage() {
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-orange">{item.label}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="overflow-hidden border-y border-slate-200 bg-white py-4 dark:border-white/10 dark:bg-[#181833]">
+        <motion.div
+          className="flex w-max gap-6"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 22, ease: "linear", repeat: Infinity }}
+        >
+          {[0, 1, 2, 3].map((item) => (
+            <div key={item} className="relative h-20 w-[420px] shrink-0 overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm sm:h-24 sm:w-[560px] lg:h-28 lg:w-[700px] dark:border-white/10">
+              <Image
+                src="/brand/krsa-academy-banner.jpeg"
+                alt="Krishna Rattan Sports Academy Khelo India Accredited Academy banner"
+                fill
+                sizes="(min-width: 1024px) 700px, (min-width: 640px) 560px, 420px"
+                className="object-contain"
+              />
+            </div>
+          ))}
+        </motion.div>
+      </section>
+
+      <section className="section-pad bg-white dark:bg-[#181833]">
+        <div className="container-wide grid gap-8 lg:grid-cols-[360px_1fr] lg:items-center">
+          <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-slate-100 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <Image
+              src={owner.photoUrl}
+              alt={owner.name}
+              width={1080}
+              height={1080}
+              className="aspect-square w-full object-cover"
+              priority
+            />
+          </div>
+          <div>
+            <span className="eyebrow">Owner</span>
+            <h2 className="mt-4 font-display text-5xl font-bold uppercase leading-none text-ink dark:text-white">{owner.name}</h2>
+            <p className="mt-2 text-sm font-bold uppercase tracking-[0.16em] text-orange">{owner.title}</p>
+            <p className="mt-6 max-w-3xl text-base leading-8 text-muted dark:text-white/60">{owner.bio}</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {owner.focus.map((item) => (
+                <span key={item} className="rounded-md border border-slate-200 px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-muted dark:border-white/10 dark:text-white/60">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
