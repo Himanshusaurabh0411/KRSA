@@ -4,9 +4,7 @@ import {
   BarChart3,
   CalendarDays,
   ClipboardCheck,
-  Dumbbell,
   FileText,
-  Goal,
   HeartPulse,
   Image as ImageIcon,
   KeyRound,
@@ -43,24 +41,27 @@ export const academy = {
 
 export const stats = [
   { label: "Athletes Trained", value: "486+" },
-  { label: "Sports Offered", value: "5" },
+  { label: "Approved Sport", value: "1" },
   { label: "Tournaments Won", value: "38" },
   { label: "Khelo India KITs", value: "24" }
 ];
 
 export const sports = [
-  { name: "Athletics", nameHi: "एथलेटिक्स", coach: "Neha Rawat", batch: "Mon/Wed/Fri - 6:00 AM", icon: Activity, description: "Speed, endurance, jumps, throws, mobility and field test tracking." },
-  { name: "Wrestling", nameHi: "कुश्ती", coach: "Vikram Dahiya", batch: "Tue/Thu/Sat - 5:00 PM", icon: ShieldCheck, description: "Mat technique, strength, discipline, injury-safe conditioning." },
-  { name: "Kabaddi", nameHi: "कबड्डी", coach: "Amit Solanki", batch: "Mon/Thu/Sat - 4:30 PM", icon: Users, description: "Raiding, defending, team tactics and tournament readiness." },
-  { name: "Football", nameHi: "फुटबॉल", coach: "Kabir Sethi", batch: "Tue/Fri - 5:30 PM", icon: Goal, description: "Ball control, tactical awareness, match play and fitness." },
-  { name: "Boxing", nameHi: "मुक्केबाजी", coach: "Rohit Malik", batch: "Wed/Sat - 6:30 AM", icon: Dumbbell, description: "Footwork, strength, technique, sparring protocols and safety." }
+  {
+    name: "Basketball",
+    nameHi: "बास्केटबॉल",
+    coach: "KRSA Coaching Team",
+    batch: "Morning and evening batches",
+    icon: Trophy,
+    description: "Basketball fundamentals, ball handling, shooting, defence, fitness, match play and Khelo India athlete tracking."
+  }
 ];
 
 export const programs = [
-  { title: "Grassroots Foundation", level: "Beginner", age: "8-14 yrs", price: 2500, focus: "Movement literacy, sport basics, discipline and confidence.", icon: Trophy },
-  { title: "Khelo India Talent Track", level: "Advanced", age: "12+ yrs", price: 0, focus: "KIT athlete tracking, reporting, attendance and performance review.", icon: ShieldCheck },
-  { title: "Competition Batch", level: "Intermediate", age: "10-18 yrs", price: 4200, focus: "Tournament preparation, tactical sessions and results tracking.", icon: Medal },
-  { title: "Strength and Conditioning", level: "Fitness", age: "12+ yrs", price: 2800, focus: "Mobility, power, endurance and injury prevention.", icon: HeartPulse }
+  { title: "Basketball Foundation", level: "Beginner", age: "8-14 yrs", price: 2500, focus: "Dribbling, passing, footwork, layups, discipline and confidence.", icon: Trophy },
+  { title: "Khelo India Talent Track", level: "Advanced", age: "12+ yrs", price: 0, focus: "Basketball KIT athlete tracking, attendance, performance and SAI reporting.", icon: ShieldCheck },
+  { title: "Competition Squad", level: "Intermediate", age: "10-18 yrs", price: 4200, focus: "Match preparation, team tactics, shooting consistency and tournament readiness.", icon: Medal },
+  { title: "Strength and Conditioning", level: "Fitness", age: "12+ yrs", price: 2800, focus: "Basketball mobility, power, speed, endurance and injury prevention.", icon: HeartPulse }
 ];
 
 export const objectives = [
@@ -73,40 +74,40 @@ export const objectives = [
 ];
 
 export const athletes = [
-  { name: "Aarav Kumar", sport: "Athletics", batch: "Morning Elite", coach: "Neha Rawat", achievement: "Gold - Delhi State U16 100m", kit: true, score: 96 },
-  { name: "Ishita Rana", sport: "Kabaddi", batch: "Girls Competition", coach: "Amit Solanki", achievement: "Captain - Zonal Championship", kit: true, score: 94 },
-  { name: "Dev Malik", sport: "Wrestling", batch: "Mat Skills", coach: "Vikram Dahiya", achievement: "Silver - Junior District Meet", kit: false, score: 89 },
-  { name: "Sara Ali", sport: "Football", batch: "Evening Tactical", coach: "Kabir Sethi", achievement: "Best Midfielder - School League", kit: false, score: 88 }
+  { name: "Aarav Kumar", sport: "Basketball", batch: "Morning Foundation", coach: "KRSA Coaching Team", achievement: "Top scorer - KRSA U16 Skills League", kit: true, score: 96 },
+  { name: "Ishita Rana", sport: "Basketball", batch: "Girls Competition", coach: "KRSA Coaching Team", achievement: "Captain - Inter-Academy Basketball Meet", kit: true, score: 94 },
+  { name: "Dev Malik", sport: "Basketball", batch: "Evening Development", coach: "KRSA Coaching Team", achievement: "Best defender - Junior District Basketball Camp", kit: false, score: 89 },
+  { name: "Sara Ali", sport: "Basketball", batch: "Shooting Lab", coach: "KRSA Coaching Team", achievement: "Most improved shooter - Academy League", kit: false, score: 88 }
 ];
 
 export const tournaments = [
-  { name: "Delhi Grassroots Sports Meet", sport: "Athletics", date: "18 May 2026", venue: "Delhi", level: "State", status: "Registration Open" },
-  { name: "KRSA Inter-Batch Kabaddi League", sport: "Kabaddi", date: "25 May 2026", venue: "KRSA Ground", level: "Academy", status: "Upcoming" },
-  { name: "North Zone Boxing Trials", sport: "Boxing", date: "07 Apr 2026", venue: "Wazirabad", level: "Zonal", status: "Results Uploaded" }
+  { name: "Delhi Youth Basketball Meet", sport: "Basketball", date: "18 May 2026", venue: "Delhi", level: "State", status: "Registration Open" },
+  { name: "KRSA Inter-Batch Basketball League", sport: "Basketball", date: "25 May 2026", venue: "KRSA Court", level: "Academy", status: "Upcoming" },
+  { name: "KRSA 3x3 Basketball Skills Challenge", sport: "Basketball", date: "07 Apr 2026", venue: "Wazirabad", level: "Academy", status: "Results Uploaded" }
 ];
 
 export const news = [
   { title: "KRSA prepares Khelo India Talent reporting dashboard", date: "08 May 2026", excerpt: "The academy is aligning athlete attendance, performance and documentation workflows with SAI reporting needs.", icon: FileText },
-  { title: "Summer training camp applications open", date: "05 May 2026", excerpt: "New applications are invited for athletics, wrestling, kabaddi, football and boxing batches.", icon: Megaphone },
-  { title: "Athletes complete quarterly fitness assessments", date: "28 Apr 2026", excerpt: "Coaches reviewed speed, endurance, mobility and sport-specific skill markers across competition batches.", icon: BarChart3 }
+  { title: "Basketball training camp applications open", date: "05 May 2026", excerpt: "New applications are invited for KRSA basketball foundation, competition and Khelo India talent batches.", icon: Megaphone },
+  { title: "Basketball athletes complete quarterly fitness assessments", date: "28 Apr 2026", excerpt: "Coaches reviewed speed, endurance, mobility, shooting consistency and basketball skill markers.", icon: BarChart3 }
 ];
 
 export const galleryItems = [
-  { title: "Morning athletics drill", type: "Photo", tone: "from-blue-900 to-navy" },
-  { title: "Kabaddi match practice", type: "Photo", tone: "from-orange to-red-800" },
-  { title: "Wrestling conditioning", type: "Video", tone: "from-slate-800 to-green" },
+  { title: "Morning basketball drills", type: "Photo", tone: "from-blue-900 to-navy" },
+  { title: "Shooting practice", type: "Photo", tone: "from-orange to-red-800" },
+  { title: "Defensive footwork", type: "Video", tone: "from-slate-800 to-green" },
   { title: "Awards ceremony", type: "Photo", tone: "from-yellow-700 to-orange" },
   { title: "Coach briefing", type: "Photo", tone: "from-navy to-indigo-950" },
-  { title: "Fitness testing", type: "Video", tone: "from-green to-emerald-900" }
+  { title: "Basketball fitness testing", type: "Video", tone: "from-green to-emerald-900" }
 ];
 
 export const schedules = [
-  { day: "Mon", time: "06:00", title: "Athletics Foundation", coach: "Neha", venue: "Track Zone" },
-  { day: "Tue", time: "17:00", title: "Wrestling Technique", coach: "Vikram", venue: "Mat Hall" },
-  { day: "Wed", time: "06:30", title: "Boxing Footwork", coach: "Rohit", venue: "Ring Area" },
-  { day: "Thu", time: "18:00", title: "Kabaddi Team Tactics", coach: "Amit", venue: "Main Court" },
-  { day: "Fri", time: "16:30", title: "Football Skills Lab", coach: "Kabir", venue: "Field 2" },
-  { day: "Sat", time: "07:00", title: "Competition Simulation", coach: "Panel", venue: "Ground" }
+  { day: "Mon", time: "06:00", title: "Basketball Foundation", coach: "KRSA Team", venue: "Main Court" },
+  { day: "Tue", time: "17:00", title: "Ball Handling and Footwork", coach: "KRSA Team", venue: "Main Court" },
+  { day: "Wed", time: "06:30", title: "Shooting Mechanics", coach: "KRSA Team", venue: "Main Court" },
+  { day: "Thu", time: "18:00", title: "Team Tactics and Defence", coach: "KRSA Team", venue: "Main Court" },
+  { day: "Fri", time: "16:30", title: "Strength and Conditioning", coach: "KRSA Team", venue: "Fitness Zone" },
+  { day: "Sat", time: "07:00", title: "Match Simulation", coach: "KRSA Team", venue: "Main Court" }
 ];
 
 export const dashboardMetrics = [

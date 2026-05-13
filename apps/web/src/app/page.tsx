@@ -35,12 +35,13 @@ export default function HomePage() {
             </a>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55 }} className="grid gap-4 sm:grid-cols-2">
-            {sports.slice(0, 4).map((sport) => (
-              <div key={sport.name} className="rounded-lg border border-white/10 bg-white/[0.08] p-6 backdrop-blur">
+          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55 }} className="grid gap-4">
+            {sports.map((sport) => (
+              <div key={sport.name} className="rounded-lg border border-white/10 bg-white/[0.08] p-8 backdrop-blur">
                 <sport.icon className="mb-10 text-orange" size={30} />
-                <p className="font-display text-3xl font-bold uppercase">{sport.name}</p>
-                <p className="mt-2 text-sm text-white/55">{sport.batch}</p>
+                <p className="font-display text-5xl font-bold uppercase">{sport.name}</p>
+                <p className="mt-4 max-w-xl text-base leading-7 text-white/65">{sport.description}</p>
+                <p className="mt-6 text-sm font-bold uppercase tracking-[0.16em] text-orange">{sport.batch}</p>
               </div>
             ))}
           </motion.div>
@@ -60,8 +61,8 @@ export default function HomePage() {
 
       <section id="sports" className="section-pad bg-cream dark:bg-[#111126]">
         <div className="container-wide">
-          <SectionHeading eyebrow="Sports Offered" title="Grassroots sports pathways for Delhi NCR athletes" copy="Each sport card includes batch timing and coach ownership, matching the brief's public sports discovery flow." />
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          <SectionHeading eyebrow="Approved Sport" title="Basketball pathway for Delhi NCR athletes" copy="KRSA is currently presented as a Khelo India Accredited Academy for basketball, with batch timing and coach ownership ready for final data." />
+          <div className="mx-auto grid max-w-3xl gap-4">
             {sports.map((sport) => (
               <Link key={sport.name} href="/sports" className="panel group min-h-72 p-5 transition hover:-translate-y-1 hover:bg-navy hover:text-white hover:shadow-premium">
                 <sport.icon className="mb-8 text-orange" size={30} />

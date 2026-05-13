@@ -10,7 +10,7 @@ import { KheloIndiaLogo } from "@/components/official-brand";
 const nav = [
   ["Home", "/"],
   ["About", "/about"],
-  ["Sports", "/sports"],
+  ["Basketball", "/sports"],
   ["Khelo India", "/khelo-india"],
   ["Athletes", "/athletes"],
   ["Tournaments", "/tournaments"],

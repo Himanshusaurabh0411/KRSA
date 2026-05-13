@@ -5,9 +5,9 @@ import { programs, schedules, sports } from "@/lib/data";
 export default function SportsPage() {
   return (
     <main>
-      <PageHero eyebrow="Sports & Programs" title="Sports offered, coaching programs and batch schedules" copy="A public overview of KRSA sports, coaches, batch timings and competition pathways." />
+      <PageHero eyebrow="Basketball Program" title="Basketball coaching, programs and batch schedules" copy="A public overview of KRSA basketball coaching, batch timings and competition pathway." />
       <section className="section-pad">
-        <div className="container-wide grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+        <div className="container-wide grid gap-5 lg:grid-cols-[1fr_1.2fr]">
           {sports.map((sport) => (
             <article key={sport.name} className="panel p-6">
               <sport.icon className="text-orange" size={32} />

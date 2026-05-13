@@ -12,7 +12,7 @@ export default function ApplyPage() {
 
   return (
     <main>
-      <PageHero eyebrow="Apply / Admissions" title="Multi-step athlete application" copy="Submit personal details, sport choice, academic information, guardian details and required documents for KRSA review." />
+      <PageHero eyebrow="Apply / Admissions" title="Basketball athlete application" copy="Submit personal details, basketball batch preference, academic information, guardian details and required documents for KRSA review." />
       <section className="section-pad">
         <div className="container-wide grid gap-8 lg:grid-cols-[1fr_360px]">
           <form

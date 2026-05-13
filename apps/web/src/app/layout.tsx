@@ -11,11 +11,11 @@ const oswald = Oswald({ subsets: ["latin"], variable: "--font-display" });
 export const metadata: Metadata = {
   metadataBase: new URL("https://krsasports.in"),
   title: "KRSA | Krishna Rattan Sports Academy",
-  description: "Official website and athlete management portal for Krishna Rattan Sports Academy, a Khelo India Accredited Academy in Wazirabad, Delhi.",
-  keywords: ["sports academy Delhi", "Khelo India academy Wazirabad", "sports coaching Delhi", "KRSA", "Krishna Rattan Sports Academy"],
+  description: "Official website and athlete management portal for Krishna Rattan Sports Academy, a Khelo India Accredited Basketball Academy in Wazirabad, Delhi.",
+  keywords: ["basketball academy Delhi", "Khelo India basketball academy Wazirabad", "basketball coaching Delhi", "KRSA", "Krishna Rattan Sports Academy"],
   openGraph: {
     title: "Krishna Rattan Sports Academy",
-    description: "Khelo India Accredited Academy in Wazirabad, Delhi.",
+    description: "Khelo India Accredited Basketball Academy in Wazirabad, Delhi.",
     type: "website"
   }
 };

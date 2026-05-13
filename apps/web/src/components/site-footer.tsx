@@ -27,7 +27,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div>
-          <p className="mb-4 font-display text-lg font-semibold">Sports</p>
+          <p className="mb-4 font-display text-lg font-semibold">Basketball</p>
           <div className="grid gap-2 text-sm text-white/55">
             {sports.map((sport) => (
               <Link key={sport.name} href="/sports" className="hover:text-white">{sport.name}</Link>
