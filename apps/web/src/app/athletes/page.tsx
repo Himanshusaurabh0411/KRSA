@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Download, Search } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { athletes, sports } from "@/lib/data";
@@ -18,18 +19,27 @@ export default function AthletesPage() {
           </div>
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {athletes.map((athlete) => (
-              <article key={athlete.name} className="panel p-5">
-                <div className="mb-5 flex h-24 items-center justify-center rounded-md bg-gradient-to-br from-navy to-orange font-display text-4xl font-bold text-white">
-                  {athlete.name.split(" ").map((part) => part[0]).join("")}
+              <article key={athlete.name} className="panel overflow-hidden">
+                <div className="relative h-56 bg-slate-100 dark:bg-white/10">
+                  <Image
+                    src={athlete.image}
+                    alt={`${athlete.name} basketball athlete photo`}
+                    fill
+                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                  {athlete.kit ? <span className="absolute left-4 top-4 rounded-full bg-green px-3 py-1 text-xs font-bold text-white">KIT</span> : null}
                 </div>
-                <div className="flex items-start justify-between gap-3">
-                  <h2 className="font-display text-2xl font-bold uppercase">{athlete.name}</h2>
-                  {athlete.kit ? <span className="rounded-full bg-green/10 px-2 py-1 text-xs font-bold text-green">KIT</span> : null}
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <h2 className="font-display text-2xl font-bold uppercase">{athlete.name}</h2>
+                    <span className="rounded-full bg-orange/10 px-2 py-1 text-xs font-bold text-orange">{athlete.score}</span>
+                  </div>
+                  <p className="mt-1 text-sm font-bold text-orange">{athlete.sport}</p>
+                  <p className="mt-4 text-sm text-muted dark:text-white/60">Batch: {athlete.batch}</p>
+                  <p className="text-sm text-muted dark:text-white/60">Coach: {athlete.coach}</p>
+                  <p className="mt-4 text-sm leading-6 text-muted dark:text-white/60">{athlete.achievement}</p>
                 </div>
-                <p className="mt-1 text-sm font-bold text-orange">{athlete.sport}</p>
-                <p className="mt-4 text-sm text-muted dark:text-white/60">Batch: {athlete.batch}</p>
-                <p className="text-sm text-muted dark:text-white/60">Coach: {athlete.coach}</p>
-                <p className="mt-4 text-sm leading-6 text-muted dark:text-white/60">{athlete.achievement}</p>
               </article>
             ))}
           </div>

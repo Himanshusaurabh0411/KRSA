@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Download, Share2 } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { tournaments } from "@/lib/data";
@@ -15,16 +16,29 @@ export default function TournamentsPage() {
           </div>
           <div className="grid gap-5">
             {tournaments.map((tournament) => (
-              <article key={tournament.name} className="panel grid gap-5 p-6 md:grid-cols-[1fr_auto] md:items-center">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-orange">{tournament.level} | {tournament.sport}</p>
-                  <h2 className="mt-2 font-display text-3xl font-bold uppercase text-ink dark:text-white">{tournament.name}</h2>
-                  <p className="mt-3 text-sm text-muted dark:text-white/60">{tournament.date} | {tournament.venue}</p>
-                  <p className="mt-3 inline-flex rounded-full bg-green/10 px-3 py-1 text-xs font-bold text-green">{tournament.status}</p>
+              <article key={tournament.name} className="panel grid gap-5 overflow-hidden md:grid-cols-[280px_1fr] md:items-stretch">
+                <div className="relative min-h-56 bg-slate-100 dark:bg-white/10">
+                  <Image
+                    src={tournament.image}
+                    alt={tournament.name}
+                    fill
+                    sizes="(min-width: 768px) 280px, 100vw"
+                    className="object-cover"
+                  />
                 </div>
-                <div className="flex gap-2">
-                  <button className="btn-secondary"><Download size={16} /> Results</button>
-                  <button className="btn-primary"><Share2 size={16} /> Share</button>
+                <div>
+                  <div className="grid h-full gap-5 p-6 md:grid-cols-[1fr_auto] md:items-center">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-orange">{tournament.level} | {tournament.sport}</p>
+                      <h2 className="mt-2 font-display text-3xl font-bold uppercase text-ink dark:text-white">{tournament.name}</h2>
+                      <p className="mt-3 text-sm text-muted dark:text-white/60">{tournament.date} | {tournament.venue}</p>
+                      <p className="mt-3 inline-flex rounded-full bg-green/10 px-3 py-1 text-xs font-bold text-green">{tournament.status}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button className="btn-secondary"><Download size={16} /> Results</button>
+                      <button className="btn-primary"><Share2 size={16} /> Share</button>
+                    </div>
+                  </div>
                 </div>
               </article>
             ))}

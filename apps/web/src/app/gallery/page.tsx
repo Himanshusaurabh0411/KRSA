@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { PageHero } from "@/components/page-hero";
 import { galleryItems } from "@/lib/data";
 
@@ -14,9 +15,17 @@ export default function GalleryPage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {galleryItems.map((item) => (
-              <article key={item.title} className={`flex aspect-[4/3] items-end rounded-lg bg-gradient-to-br ${item.tone} p-5 text-white shadow-premium`}>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/60">{item.type}</p>
+              <article key={item.title} className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-lg bg-navy p-5 text-white shadow-premium">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                <div className="relative">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/60">{item.category} | {item.type}</p>
                   <h2 className="font-display text-3xl font-bold uppercase">{item.title}</h2>
                 </div>
               </article>

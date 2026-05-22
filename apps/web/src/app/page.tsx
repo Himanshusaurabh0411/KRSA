@@ -134,8 +134,15 @@ export default function HomePage() {
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {athletes.map((athlete) => (
               <Link href="/athletes" key={athlete.name} className="panel p-5 transition hover:-translate-y-1 hover:shadow-premium">
-                <div className="mb-5 flex h-24 items-center justify-center rounded-md bg-gradient-to-br from-navy to-orange font-display text-4xl font-bold text-white">
-                  {athlete.name.split(" ").map((part) => part[0]).join("")}
+                <div className="relative mb-5 h-40 overflow-hidden rounded-md bg-slate-100 dark:bg-white/10">
+                  <Image
+                    src={athlete.image}
+                    alt={`${athlete.name} basketball spotlight at KRSA`}
+                    fill
+                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition duration-500 hover:scale-105"
+                  />
+                  {athlete.kit ? <span className="absolute left-3 top-3 rounded-full bg-green px-3 py-1 text-xs font-bold text-white">KIT</span> : null}
                 </div>
                 <p className="font-display text-2xl font-bold uppercase text-ink dark:text-white">{athlete.name}</p>
                 <p className="mt-1 text-sm font-bold text-orange">{athlete.sport} | {athlete.batch}</p>
@@ -152,11 +159,24 @@ export default function HomePage() {
             <SectionHeading eyebrow="News & Updates" title="Announcements, reports and academy notices" />
             <div className="grid gap-4 md:grid-cols-3">
               {news.map((item) => (
-                <Link href="/news" key={item.title} className="panel p-5">
-                  <item.icon className="text-orange" size={24} />
-                  <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-green">{item.date}</p>
-                  <h2 className="mt-2 font-display text-2xl font-bold uppercase text-ink dark:text-white">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-6 text-muted dark:text-white/60">{item.excerpt}</p>
+                <Link href="/news" key={item.title} className="panel overflow-hidden p-0">
+                  <div className="relative h-40 overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      className="object-cover transition duration-500 hover:scale-105"
+                    />
+                    <span className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-md bg-white text-orange shadow-sm">
+                      <item.icon size={20} />
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-green">{item.date}</p>
+                    <h2 className="mt-2 font-display text-2xl font-bold uppercase text-ink dark:text-white">{item.title}</h2>
+                    <p className="mt-3 text-sm leading-6 text-muted dark:text-white/60">{item.excerpt}</p>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -165,9 +185,20 @@ export default function HomePage() {
             <p className="font-display text-2xl font-bold uppercase text-ink dark:text-white">Tournament Results</p>
             <div className="mt-5 grid gap-4">
               {tournaments.map((tournament) => (
-                <div key={tournament.name} className="border-b border-slate-200 pb-4 last:border-0 dark:border-white/10">
-                  <p className="font-bold">{tournament.name}</p>
-                  <p className="mt-1 text-sm text-muted dark:text-white/60">{tournament.sport} | {tournament.status}</p>
+                <div key={tournament.name} className="grid grid-cols-[76px_1fr] gap-4 border-b border-slate-200 pb-4 last:border-0 dark:border-white/10">
+                  <div className="relative h-16 overflow-hidden rounded-md bg-slate-100 dark:bg-white/10">
+                    <Image
+                      src={tournament.image}
+                      alt={tournament.name}
+                      fill
+                      sizes="76px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="font-bold">{tournament.name}</p>
+                    <p className="mt-1 text-sm text-muted dark:text-white/60">{tournament.sport} | {tournament.status}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -191,8 +222,16 @@ export default function HomePage() {
           <SectionHeading eyebrow="Gallery" title="Training, tournaments and ceremonies" />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {galleryItems.map((item) => (
-              <Link href="/gallery" key={item.title} className={`flex aspect-[4/3] items-end rounded-lg bg-gradient-to-br ${item.tone} p-5 text-white`}>
-                <span>
+              <Link href="/gallery" key={item.title} className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-lg bg-navy p-5 text-white">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+                <span className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                <span className="relative">
                   <span className="block text-xs font-bold uppercase tracking-[0.16em] text-white/60">{item.type}</span>
                   <span className="font-display text-2xl font-bold uppercase">{item.title}</span>
                 </span>

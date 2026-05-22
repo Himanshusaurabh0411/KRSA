@@ -89,31 +89,109 @@ export const objectives = [
 ];
 
 export const athletes = [
-  { name: "Aarav Kumar", sport: "Basketball", batch: "Morning Foundation", coach: "KRSA Coaching Team", achievement: "Top scorer - KRSA U16 Skills League", kit: true, score: 96 },
-  { name: "Ishita Rana", sport: "Basketball", batch: "Girls Competition", coach: "KRSA Coaching Team", achievement: "Captain - Inter-Academy Basketball Meet", kit: true, score: 94 },
-  { name: "Dev Malik", sport: "Basketball", batch: "Evening Development", coach: "KRSA Coaching Team", achievement: "Best defender - Junior District Basketball Camp", kit: false, score: 89 },
-  { name: "Sara Ali", sport: "Basketball", batch: "Shooting Lab", coach: "KRSA Coaching Team", achievement: "Most improved shooter - Academy League", kit: false, score: 88 }
+  {
+    name: "KRSA Guard Unit",
+    sport: "Basketball",
+    batch: "Morning Foundation",
+    coach: "KRSA Coaching Team",
+    achievement: "Young athletes training under KRSA's basketball development pathway.",
+    kit: true,
+    score: 96,
+    image: "/media/athletes/krsa-athlete-rising-guards.jpg"
+  },
+  {
+    name: "Orange Squad",
+    sport: "Basketball",
+    batch: "Girls Competition",
+    coach: "KRSA Coaching Team",
+    achievement: "Match-ready squad work focused on ball movement, spacing and confidence.",
+    kit: true,
+    score: 94,
+    image: "/media/athletes/krsa-athlete-orange-squad.jpg"
+  },
+  {
+    name: "Court Action Squad",
+    sport: "Basketball",
+    batch: "Evening Development",
+    coach: "KRSA Coaching Team",
+    achievement: "Competitive match practice with live-game decision making and defence.",
+    kit: false,
+    score: 89,
+    image: "/media/athletes/krsa-athlete-court-action.jpg"
+  },
+  {
+    name: "Recognition Spotlight",
+    sport: "Basketball",
+    batch: "Achievement Track",
+    coach: "KRSA Coaching Team",
+    achievement: "Academy recognition moments for disciplined participation and progress.",
+    kit: false,
+    score: 88,
+    image: "/media/athletes/krsa-athlete-recognition.jpg"
+  }
 ];
 
 export const tournaments = [
-  { name: "Delhi Youth Basketball Meet", sport: "Basketball", date: "18 May 2026", venue: "Delhi", level: "State", status: "Registration Open" },
-  { name: "KRSA Inter-Batch Basketball League", sport: "Basketball", date: "25 May 2026", venue: "KRSA Court", level: "Academy", status: "Upcoming" },
-  { name: "KRSA 3x3 Basketball Skills Challenge", sport: "Basketball", date: "07 Apr 2026", venue: "Wazirabad", level: "Academy", status: "Results Uploaded" }
+  {
+    name: "Delhi Youth Basketball Meet",
+    sport: "Basketball",
+    date: "18 May 2026",
+    venue: "Delhi",
+    level: "State",
+    status: "Results Uploaded",
+    image: "/media/tournaments/krsa-tournament-opening-tip.jpg"
+  },
+  {
+    name: "KRSA Inter-Batch Basketball League",
+    sport: "Basketball",
+    date: "25 May 2026",
+    venue: "KRSA Court",
+    level: "Academy",
+    status: "Upcoming",
+    image: "/media/tournaments/krsa-tournament-match-action.jpg"
+  },
+  {
+    name: "KRSA 3x3 Basketball Skills Challenge",
+    sport: "Basketball",
+    date: "07 Apr 2026",
+    venue: "Wazirabad",
+    level: "Academy",
+    status: "Results Uploaded",
+    image: "/media/tournaments/krsa-tournament-crowd-address.jpg"
+  }
 ];
 
 export const news = [
-  { title: "KRSA prepares Khelo India Talent reporting dashboard", date: "08 May 2026", excerpt: "The academy is aligning athlete attendance, performance and documentation workflows with SAI reporting needs.", icon: FileText },
-  { title: "Basketball training camp applications open", date: "05 May 2026", excerpt: "New applications are invited for KRSA basketball foundation, competition and Khelo India talent batches.", icon: Megaphone },
-  { title: "Basketball athletes complete quarterly fitness assessments", date: "28 Apr 2026", excerpt: "Coaches reviewed speed, endurance, mobility, shooting consistency and basketball skill markers.", icon: BarChart3 }
+  {
+    title: "KRSA hosts academy felicitation and recognition ceremony",
+    date: "08 May 2026",
+    excerpt: "Guests, coaches and academy leadership came together to recognise the basketball pathway and athlete development work.",
+    icon: FileText,
+    image: "/media/news/krsa-news-felicitation.jpg"
+  },
+  {
+    title: "Khelo India academy visit highlights basketball facilities",
+    date: "05 May 2026",
+    excerpt: "Academy representatives welcomed dignitaries and reviewed training, documentation and future athlete support plans.",
+    icon: Megaphone,
+    image: "/media/news/krsa-news-official-visit.jpg"
+  },
+  {
+    title: "Opening ceremony brings players, coaches and supporters together",
+    date: "28 Apr 2026",
+    excerpt: "KRSA's basketball community gathered for court-side introductions, team moments and public recognition.",
+    icon: BarChart3,
+    image: "/media/news/krsa-news-opening-ceremony.jpg"
+  }
 ];
 
 export const galleryItems = [
-  { title: "Morning basketball drills", type: "Photo", tone: "from-blue-900 to-navy" },
-  { title: "Shooting practice", type: "Photo", tone: "from-orange to-red-800" },
-  { title: "Defensive footwork", type: "Video", tone: "from-slate-800 to-green" },
-  { title: "Awards ceremony", type: "Photo", tone: "from-yellow-700 to-orange" },
-  { title: "Coach briefing", type: "Photo", tone: "from-navy to-indigo-950" },
-  { title: "Basketball fitness testing", type: "Video", tone: "from-green to-emerald-900" }
+  { title: "KRSA court gathering", type: "Photo", category: "Ceremonies", image: "/media/gallery/krsa-gallery-campus-wide.jpg" },
+  { title: "Officials on court", type: "Photo", category: "Ceremonies", image: "/media/gallery/krsa-gallery-officials-court.jpg" },
+  { title: "Guest dais and awards", type: "Photo", category: "Ceremonies", image: "/media/gallery/krsa-gallery-dais.jpg" },
+  { title: "Team lineup", type: "Photo", category: "Training", image: "/media/gallery/krsa-gallery-team-lineup.jpg" },
+  { title: "Player greeting", type: "Photo", category: "Tournaments", image: "/media/gallery/krsa-gallery-player-greeting.jpg" },
+  { title: "Guest welcome", type: "Photo", category: "News", image: "/media/gallery/krsa-gallery-guest-welcome.jpg" }
 ];
 
 export const schedules = [
