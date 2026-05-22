@@ -9,7 +9,7 @@ export function SiteFooter() {
       <div className="container-wide grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <div className="mb-4 flex flex-wrap items-center gap-3">
-            <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-md bg-white shadow-sm">
+            <span className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg border-2 border-orange/80 bg-[#fff4b8] p-1 shadow-[0_0_0_4px_rgba(244,125,59,0.12)]">
               <KRSALogo />
             </span>
             <span className="flex h-12 w-24 items-center rounded-md bg-white px-3 py-2">
@@ -54,8 +54,15 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <div className="container-wide mt-10 border-t border-white/10 pt-5 text-xs text-white/35">
-        Copyright KRSA. Privacy Policy | Terms. Recommended domain: {academy.domain}
+      <div className="container-wide mt-10 flex flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/35 md:flex-row md:items-center md:justify-between">
+        <span>Copyright KRSA. Privacy Policy | Terms. Recommended domain: {academy.domain}</span>
+        <span>
+          Made by{" "}
+          <Link href={academy.techPartner.url} target="_blank" rel="noopener noreferrer" className="font-bold text-orange hover:text-white">
+            {academy.techPartner.name}
+          </Link>{" "}
+          · Tech Partner
+        </span>
       </div>
     </footer>
   );

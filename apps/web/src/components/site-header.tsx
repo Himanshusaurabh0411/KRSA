@@ -30,7 +30,7 @@ export function SiteHeader() {
           <KheloIndiaLogo priority />
         </Link>
         <Link href="/" className="flex min-w-0 flex-1 items-center justify-center gap-3 text-center" aria-label="KRSA home">
-          <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-md bg-white shadow-sm">
+          <span className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border-2 border-orange/85 bg-[#fff4b8] p-1 shadow-[0_0_0_4px_rgba(244,125,59,0.16),0_14px_34px_rgba(244,125,59,0.24)] ring-1 ring-white/35 transition duration-200 hover:scale-[1.03]">
             <KRSALogo priority />
           </span>
           <span className="min-w-0">
