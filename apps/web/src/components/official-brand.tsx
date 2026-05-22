@@ -1,5 +1,18 @@
 import Image from "next/image";
 
+export function KRSALogo({ className = "", priority = false }: { className?: string; priority?: boolean }) {
+  return (
+    <Image
+      src="/brand/krsa-logo.jpeg"
+      alt="KRSA logo"
+      width={558}
+      height={558}
+      priority={priority}
+      className={`h-auto w-full object-contain ${className}`}
+    />
+  );
+}
+
 export function KheloIndiaLogo({ className = "", priority = false }: { className?: string; priority?: boolean }) {
   return (
     <Image

@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { LogIn, Menu, Moon, Sun, X } from "lucide-react";
+import { ExternalLink, Menu, Moon, Sun, X } from "lucide-react";
 import { useState } from "react";
 import { academy } from "@/lib/data";
 import { useTheme } from "@/components/theme-provider";
-import { KheloIndiaLogo } from "@/components/official-brand";
+import { KheloIndiaLogo, KRSALogo } from "@/components/official-brand";
 
 const nav = [
   ["Home", "/"],
@@ -30,7 +30,9 @@ export function SiteHeader() {
           <KheloIndiaLogo priority />
         </Link>
         <Link href="/" className="flex min-w-0 flex-1 items-center justify-center gap-3 text-center" aria-label="KRSA home">
-          <span className="flex h-11 w-12 shrink-0 items-center justify-center rounded-md bg-white font-display text-xs font-bold text-navy">KRSA</span>
+          <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-md bg-white shadow-sm">
+            <KRSALogo priority />
+          </span>
           <span className="min-w-0">
             <span className="block truncate font-display text-base font-bold uppercase leading-none tracking-wide sm:text-lg">{academy.name}</span>
             <span className="block text-[10px] uppercase tracking-[0.18em] text-orange">{academy.designationHi} | {academy.designationEn}</span>
@@ -59,8 +61,8 @@ export function SiteHeader() {
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-          <Link href="/login" className="hidden items-center gap-2 rounded-md border border-white/15 px-4 py-2 text-sm font-bold text-white/80 transition hover:bg-white/10 sm:inline-flex">
-            <LogIn size={16} /> Login
+          <Link href={academy.nsrsPortalUrl} target="_blank" rel="noopener noreferrer" className="hidden items-center gap-2 rounded-md border border-white/15 px-4 py-2 text-sm font-bold text-white/80 transition hover:bg-white/10 sm:inline-flex">
+            <ExternalLink size={16} /> Welcome to NSRS Portal
           </Link>
           <Link href="/apply" className="rounded-md bg-orange px-4 py-2 text-sm font-bold shadow-lg shadow-orange/20 transition hover:bg-[#d85a24] sm:inline-flex">
             Apply Now
@@ -79,7 +81,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <Link href="/apply" onClick={() => setOpen(false)} className="rounded-md bg-orange px-3 py-2 text-sm font-bold text-white">Apply Now</Link>
-            <Link href="/login" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:bg-white/10">Login</Link>
+            <Link href={academy.nsrsPortalUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:bg-white/10">Welcome to NSRS Portal</Link>
           </nav>
         </div>
       ) : null}

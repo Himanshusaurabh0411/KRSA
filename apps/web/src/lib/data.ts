@@ -30,6 +30,7 @@ export const academy = {
   affiliation: "Sports Authority of India (SAI) / Khelo India Programme",
   designationHi: "खेलो इंडिया मान्यता प्राप्त अकादमी",
   designationEn: "KHELO INDIA ACCREDITED ACADEMY",
+  nsrsPortalUrl: "https://account.kheloindia.gov.in/#/login?appId=zij54QFtvO",
   domain: "krsasports.in",
   mission:
     "To provide world-class sports coaching, education and moral training to children from all sections of society including SC/ST and weaker sections, in partnership with the Khelo India programme.",

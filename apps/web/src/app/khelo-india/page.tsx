@@ -39,7 +39,7 @@ export default function KheloIndiaPage() {
               <div className="mt-4 grid gap-3 text-sm">
                 <Link href="#" className="flex items-center gap-2 text-navy dark:text-white"><FileText size={16} /> MOU overview (public version)</Link>
                 <Link href="#" className="flex items-center gap-2 text-navy dark:text-white"><FileText size={16} /> Branding guidelines</Link>
-                <Link href="https://nsrs.kheloindia.gov.in" className="flex items-center gap-2 text-navy dark:text-white"><ExternalLink size={16} /> NSRS portal</Link>
+                <Link href={academy.nsrsPortalUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-navy dark:text-white"><ExternalLink size={16} /> Welcome to NSRS Portal</Link>
               </div>
             </div>
           </aside>

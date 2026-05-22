@@ -10,13 +10,6 @@ const routes = [
   "gallery",
   "news",
   "apply",
-  "login",
-  "admin",
-  "portal/coach",
-  "portal/athlete",
-  "portal/student",
-  "portal/parent",
-  "portal/sai",
   "contact"
 ];
 

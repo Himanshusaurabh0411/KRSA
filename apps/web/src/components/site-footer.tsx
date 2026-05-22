@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { ExternalLink, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { academy, sports } from "@/lib/data";
-import { KheloIndiaLogo } from "@/components/official-brand";
+import { KheloIndiaLogo, KRSALogo } from "@/components/official-brand";
 
 export function SiteFooter() {
   return (
@@ -9,7 +9,9 @@ export function SiteFooter() {
       <div className="container-wide grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <div className="mb-4 flex flex-wrap items-center gap-3">
-            <span className="flex h-10 w-12 items-center justify-center rounded-md bg-white font-display text-xs font-bold text-navy">KRSA</span>
+            <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-md bg-white shadow-sm">
+              <KRSALogo />
+            </span>
             <span className="flex h-12 w-24 items-center rounded-md bg-white px-3 py-2">
               <KheloIndiaLogo />
             </span>
@@ -41,6 +43,7 @@ export function SiteFooter() {
             <Link href="/athletes" className="hover:text-white">Athletes</Link>
             <Link href="/tournaments" className="hover:text-white">Tournaments</Link>
             <Link href="/apply" className="hover:text-white">Apply</Link>
+            <Link href={academy.nsrsPortalUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white"><ExternalLink size={14} /> Welcome to NSRS Portal</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>
           </div>
           <div className="mt-6 flex gap-3 text-white/60">
