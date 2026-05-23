@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Application, Athlete, Batch, Coach, Sport } from "../models/academy.model.js";
 import { Achievement, AuditLog, GalleryItem, NewsPost, SaiDocument, Tournament } from "../models/operations.model.js";
-import { asyncHandler } from "../utils/errors.js";
+import { ApiError, asyncHandler } from "../utils/errors.js";
 import type { AuthRequest } from "../middleware/auth.js";
 
 const id = z.string().min(1);
@@ -150,6 +150,31 @@ export const createNews = asyncHandler(async (req: AuthRequest, res) => {
   res.status(201).json({ post });
 });
 
+export const updateNews = asyncHandler(async (req: AuthRequest, res) => {
+  const data = z.object({
+    title: z.string().min(2).optional(),
+    slug: z.string().min(2).optional(),
+    body: z.string().optional(),
+    excerpt: z.string().optional(),
+    featuredImage: z.string().optional(),
+    publishedAt: z.coerce.date().optional(),
+    tags: z.array(z.string()).optional(),
+    seo: z.object({ metaTitle: z.string().optional(), metaDescription: z.string().optional(), ogImage: z.string().optional() }).optional(),
+    status: z.enum(["draft", "scheduled", "published"]).optional()
+  }).parse(req.body);
+  const post = await NewsPost.findByIdAndUpdate(req.params.id, data, { new: true, runValidators: true });
+  if (!post) throw new ApiError(404, "News post not found");
+  await AuditLog.create({ actor: req.user?.id, action: "news.update", resource: "NewsPost", resourceId: post.id });
+  res.json({ post });
+});
+
+export const deleteNews = asyncHandler(async (req: AuthRequest, res) => {
+  const post = await NewsPost.findByIdAndDelete(req.params.id);
+  if (!post) throw new ApiError(404, "News post not found");
+  await AuditLog.create({ actor: req.user?.id, action: "news.delete", resource: "NewsPost", resourceId: post.id });
+  res.json({ deleted: true });
+});
+
 export const listGallery = asyncHandler(async (_req, res) => {
   res.json({ items: await GalleryItem.find({ isPublic: true }).populate("sport").sort({ eventDate: -1 }) });
 });
@@ -168,6 +193,30 @@ export const createGalleryItem = asyncHandler(async (req: AuthRequest, res) => {
   const item = await GalleryItem.create(data);
   await AuditLog.create({ actor: req.user?.id, action: "gallery.create", resource: "GalleryItem", resourceId: item.id });
   res.status(201).json({ item });
+});
+
+export const updateGalleryItem = asyncHandler(async (req: AuthRequest, res) => {
+  const data = z.object({
+    type: z.enum(["photo", "video"]).optional(),
+    url: z.string().min(1).optional(),
+    album: z.string().optional(),
+    caption: z.string().optional(),
+    sport: z.string().optional(),
+    eventDate: z.coerce.date().optional(),
+    tags: z.array(z.string()).optional(),
+    isPublic: z.boolean().optional()
+  }).parse(req.body);
+  const item = await GalleryItem.findByIdAndUpdate(req.params.id, data, { new: true, runValidators: true });
+  if (!item) throw new ApiError(404, "Gallery item not found");
+  await AuditLog.create({ actor: req.user?.id, action: "gallery.update", resource: "GalleryItem", resourceId: item.id });
+  res.json({ item });
+});
+
+export const deleteGalleryItem = asyncHandler(async (req: AuthRequest, res) => {
+  const item = await GalleryItem.findByIdAndDelete(req.params.id);
+  if (!item) throw new ApiError(404, "Gallery item not found");
+  await AuditLog.create({ actor: req.user?.id, action: "gallery.delete", resource: "GalleryItem", resourceId: item.id });
+  res.json({ deleted: true });
 });
 
 export const listSaiDocuments = asyncHandler(async (_req, res) => {

@@ -9,6 +9,8 @@ import {
   createSaiDocument,
   createSport,
   createTournament,
+  deleteGalleryItem,
+  deleteNews,
   listApplications,
   listAthletes,
   listGallery,
@@ -17,7 +19,9 @@ import {
   listSports,
   listTournaments,
   saiExport,
-  updateApplicationStatus
+  updateApplicationStatus,
+  updateGalleryItem,
+  updateNews
 } from "../controllers/content.controller.js";
 import { authenticate, authorize } from "../middleware/auth.js";
 import { upload } from "../middleware/upload.js";
@@ -48,10 +52,14 @@ tournamentsRouter.post("/", authenticate, authorize(...adminRoles), createTourna
 export const newsRouter = Router();
 newsRouter.get("/", listNews);
 newsRouter.post("/", authenticate, authorize(...adminRoles), createNews);
+newsRouter.patch("/:id", authenticate, authorize(...adminRoles), updateNews);
+newsRouter.delete("/:id", authenticate, authorize(...adminRoles), deleteNews);
 
 export const galleryRouter = Router();
 galleryRouter.get("/", listGallery);
 galleryRouter.post("/", authenticate, authorize(...adminRoles), createGalleryItem);
+galleryRouter.patch("/:id", authenticate, authorize(...adminRoles), updateGalleryItem);
+galleryRouter.delete("/:id", authenticate, authorize(...adminRoles), deleteGalleryItem);
 
 export const saiRouter = Router();
 saiRouter.get("/documents", authenticate, authorize(...saiRoles), listSaiDocuments);
