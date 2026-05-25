@@ -40,19 +40,34 @@ export const academy = {
     "To provide world-class sports coaching, education and moral training to children from all sections of society including SC/ST and weaker sections, in partnership with the Khelo India programme.",
   vision:
     "To become a leading grassroots sports development institution in Delhi NCR, nurturing talent from underserved communities and creating a pipeline of champion athletes representing India.",
-  mouDuration: "4 years, renewable upon performance review",
   primaryObligation: "Training of Khelo India Talent (KIT) athletes with full reporting to SAI/NSRS"
 };
 
-export const owner = {
-  name: "Mukesh Kalia",
-  title: "Owner",
-  role: "Academy leadership and basketball development",
-  photoUrl: "/people/mukesh-kalia.jpeg",
-  bio:
-    "Mukesh Kalia leads Krishna Rattan Sports Academy with a focus on disciplined basketball training, grassroots athlete development and transparent Khelo India academy operations. His vision is to create a reliable pathway where young players from Delhi can train with structure, values and long-term support.",
-  focus: ["Basketball pathway", "Khelo India compliance", "Grassroots athlete support"]
-};
+export const trustees = [
+  {
+    name: "Mukesh Kalia",
+    title: "Trustee, KRSA",
+    role: "Academy leadership and basketball development",
+    photoUrl: "/people/mukesh-kalia.jpeg",
+    bio:
+      "Mukesh Kalia guides Krishna Rattan Sports Academy with a focus on disciplined basketball training, grassroots athlete development and transparent Khelo India academy operations. His vision is to create a reliable pathway where young players from Delhi can train with structure, values and long-term support.",
+    details: ["Advocate", "Trustee, KRSA", "Basketball pathway"],
+    focus: ["Basketball pathway", "Khelo India compliance", "Grassroots athlete support"]
+  },
+  {
+    name: "Sapna Kalia",
+    title: "Secretary and Trustee, KRSA",
+    role: "Education, public relations and community service",
+    photoUrl: "/people/sapna-kalia.jpeg",
+    dateOfBirth: "27 June 1966",
+    education: "Studied Philosophy, Nursery Teacher Training (NTT)",
+    professionalExperience: "Public Relations Officer at Kalia Associates",
+    bio:
+      "Sapna Kalia has dedicated her career to education, professional development and community service. With a strong academic foundation in philosophy and early childhood education, she has contributed meaningfully as a Public Relations Officer at Kalia Associates. Her leadership and commitment to social causes are reflected in her current responsibilities as both Secretary and Trustee of KRSA, where she plays a pivotal role in guiding the organization's vision and activities.",
+    details: ["Secretary, KRSA", "Trustee, KRSA", "Public relations"],
+    focus: ["Education", "Professional development", "Community service"]
+  }
+];
 
 export const stats = [
   { label: "Athletes Trained", value: "486+" },

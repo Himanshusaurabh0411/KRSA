@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Play, ShieldCheck } from "lucide-react";
-import { academy, athletes, galleryItems, news, owner, sports, stats, tournaments } from "@/lib/data";
+import { academy, athletes, galleryItems, news, sports, stats, tournaments, trustees } from "@/lib/data";
 import { SectionHeading } from "@/components/section-heading";
 import { KheloIndiaLogo } from "@/components/official-brand";
 
@@ -59,26 +59,32 @@ export default function HomePage() {
 
           <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55 }} className="grid gap-4">
             <div className="rounded-lg border border-white/10 bg-white/[0.08] p-5 backdrop-blur">
-              <div className="grid gap-5 sm:grid-cols-[128px_1fr] sm:items-center">
-                <div className="relative h-32 w-32 overflow-hidden rounded-lg border border-white/15 bg-white/10">
-                  <Image
-                    src={owner.photoUrl}
-                    alt={owner.name}
-                    fill
-                    sizes="128px"
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-[0.18em] text-orange">Owner</span>
-                  <h2 className="mt-2 font-display text-4xl font-bold uppercase leading-none text-white">{owner.name}</h2>
-                  <p className="mt-2 text-sm font-bold uppercase tracking-[0.14em] text-white/55">{owner.title}</p>
-                  <p className="mt-4 text-sm leading-6 text-white/65">{owner.bio}</p>
-                </div>
+              <span className="text-xs font-bold uppercase tracking-[0.18em] text-orange">KRSA Trustees</span>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                {trustees.map((trustee, index) => (
+                  <div key={trustee.name} className="rounded-md border border-white/10 bg-white/[0.06] p-4">
+                    <div className="grid gap-4 sm:grid-cols-[96px_1fr] sm:items-center">
+                      <div className="relative h-24 w-24 overflow-hidden rounded-lg border border-white/15 bg-white/10">
+                        <Image
+                          src={trustee.photoUrl}
+                          alt={trustee.name}
+                          fill
+                          sizes="96px"
+                          className="object-cover"
+                          priority={index === 0}
+                        />
+                      </div>
+                      <div>
+                        <h2 className="font-display text-3xl font-bold uppercase leading-none text-white">{trustee.name}</h2>
+                        <p className="mt-2 text-xs font-bold uppercase tracking-[0.14em] text-white/55">{trustee.title}</p>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-sm leading-6 text-white/65">{trustee.role}</p>
+                  </div>
+                ))}
               </div>
               <div className="mt-5 flex flex-wrap gap-2">
-                {owner.focus.map((item) => (
+                {trustees.flatMap((trustee) => trustee.focus).slice(0, 6).map((item) => (
                   <span key={item} className="rounded-md border border-white/10 px-3 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/65">
                     {item}
                   </span>
@@ -111,7 +117,7 @@ export default function HomePage() {
 
       <section id="sports" className="section-pad bg-cream dark:bg-[#111126]">
         <div className="container-wide">
-          <SectionHeading eyebrow="Approved Sport" title="Basketball pathway for Delhi NCR athletes" copy="KRSA is currently presented as a Khelo India Accredited Academy for basketball, with batch timing and coach ownership ready for final data." />
+          <SectionHeading eyebrow="Approved Sport" title="Basketball pathway for Delhi NCR athletes" copy="KRSA is currently presented as a Khelo India Accredited Academy for basketball, with batch timing and coach details ready for final data." />
           <div className="mx-auto grid max-w-3xl gap-4">
             {sports.map((sport) => (
               <Link key={sport.name} href="/sports" className="panel group min-h-72 p-5 transition hover:-translate-y-1 hover:bg-navy hover:text-white hover:shadow-premium">
@@ -222,7 +228,7 @@ export default function HomePage() {
           <SectionHeading eyebrow="Gallery" title="Training, tournaments and ceremonies" />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {galleryItems.map((item) => (
-              <Link href="/gallery" key={item.title} className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-lg bg-navy p-5 text-white">
+              <Link href="/gallery" key={item.title} aria-label={`Open ${item.title} gallery album`} className="group relative block aspect-[4/3] overflow-hidden rounded-lg bg-navy text-white">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -230,11 +236,6 @@ export default function HomePage() {
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition duration-500 group-hover:scale-105"
                 />
-                <span className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-                <span className="relative">
-                  <span className="block text-xs font-bold uppercase tracking-[0.16em] text-white/60">{item.type}</span>
-                  <span className="font-display text-2xl font-bold uppercase">{item.title}</span>
-                </span>
               </Link>
             ))}
           </div>

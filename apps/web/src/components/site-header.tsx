@@ -34,8 +34,8 @@ export function SiteHeader() {
             <KRSALogo priority />
           </span>
           <span className="min-w-0">
-            <span className="block truncate font-display text-base font-bold uppercase leading-none tracking-wide sm:text-lg">{academy.name}</span>
-            <span className="block text-[10px] uppercase tracking-[0.18em] text-orange">{academy.designationHi} | {academy.designationEn}</span>
+            <span className="block truncate font-display text-2xl font-bold uppercase leading-none tracking-wide sm:text-3xl lg:text-4xl">{academy.name}</span>
+            <span className="block text-[10px] uppercase tracking-[0.18em] text-orange sm:text-xs">{academy.designationHi} | {academy.designationEn}</span>
           </span>
         </Link>
         <Link href="/khelo-india" className="hidden min-h-14 min-w-28 items-center justify-center rounded-md border border-white/15 px-3 text-center font-display text-[10px] font-bold uppercase leading-tight text-white/85 sm:flex" aria-label="Sports Authority of India">

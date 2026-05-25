@@ -22,7 +22,6 @@ export default function KheloIndiaPage() {
             <h2 className="mt-6 font-display text-4xl font-bold uppercase text-ink dark:text-white">{academy.accreditation}</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-muted dark:text-white/60">
               <p><strong className="text-ink dark:text-white">Accrediting authority:</strong> {academy.affiliation}</p>
-              <p><strong className="text-ink dark:text-white">MOU duration:</strong> {academy.mouDuration}</p>
               <p><strong className="text-ink dark:text-white">Primary obligation:</strong> {academy.primaryObligation}</p>
               <p><strong className="text-ink dark:text-white">Branding:</strong> Khelo India and SAI identity must be prominently displayed on website header and footer.</p>
             </div>
@@ -37,7 +36,6 @@ export default function KheloIndiaPage() {
             <div className="panel p-6">
               <p className="font-display text-2xl font-bold uppercase">Downloads</p>
               <div className="mt-4 grid gap-3 text-sm">
-                <Link href="#" className="flex items-center gap-2 text-navy dark:text-white"><FileText size={16} /> MOU overview (public version)</Link>
                 <Link href="#" className="flex items-center gap-2 text-navy dark:text-white"><FileText size={16} /> Branding guidelines</Link>
                 <Link href={academy.nsrsPortalUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-navy dark:text-white"><ExternalLink size={16} /> Welcome to NSRS Portal</Link>
               </div>
