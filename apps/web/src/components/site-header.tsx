@@ -12,8 +12,6 @@ const nav = [
   ["About", "/about"],
   ["Basketball", "/sports"],
   ["Khelo India", "/khelo-india"],
-  ["Athletes", "/athletes"],
-  ["Tournaments", "/tournaments"],
   ["Gallery", "/gallery"],
   ["News", "/news"],
   ["Contact", "/contact"]
@@ -34,7 +32,7 @@ export function SiteHeader() {
             <KRSALogo priority />
           </span>
           <span className="min-w-0">
-            <span className="block truncate font-display text-2xl font-bold uppercase leading-none tracking-wide sm:text-3xl lg:text-4xl">{academy.name}</span>
+            <span className="block truncate font-display text-3xl font-bold uppercase leading-none tracking-wide sm:text-4xl lg:text-5xl">{academy.name}</span>
             <span className="block text-[10px] uppercase tracking-[0.18em] text-orange sm:text-xs">{academy.designationHi} | {academy.designationEn}</span>
           </span>
         </Link>

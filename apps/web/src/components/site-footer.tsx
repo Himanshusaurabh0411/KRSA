@@ -40,8 +40,8 @@ export function SiteFooter() {
           <p className="mb-4 font-display text-lg font-semibold">Quick Links</p>
           <div className="grid gap-2 text-sm text-white/55">
             <Link href="/khelo-india" className="hover:text-white">Khelo India</Link>
-            <Link href="/athletes" className="hover:text-white">Athletes</Link>
-            <Link href="/tournaments" className="hover:text-white">Tournaments</Link>
+            <Link href="/gallery" className="hover:text-white">Gallery</Link>
+            <Link href="/news" className="hover:text-white">News</Link>
             <Link href="/apply" className="hover:text-white">Apply</Link>
             <Link href={academy.nsrsPortalUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white"><ExternalLink size={14} /> Welcome to NSRS Portal</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>

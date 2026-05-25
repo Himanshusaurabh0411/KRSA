@@ -5,8 +5,6 @@ const routes = [
   "about",
   "sports",
   "khelo-india",
-  "athletes",
-  "tournaments",
   "gallery",
   "news",
   "apply",

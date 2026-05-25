@@ -1,26 +1,20 @@
-import Image from "next/image";
+"use client";
+
 import { PageHero } from "@/components/page-hero";
-import { news } from "@/lib/data";
+import { useCmsContent } from "@/lib/cms-content";
 
 export default function NewsPage() {
+  const { content } = useCmsContent();
+
   return (
     <main>
       <PageHero eyebrow="News & Updates" title="Announcements, press coverage and SAI circulars" copy="News cards with date, thumbnail area, excerpt and SEO-ready article structure." />
       <section className="section-pad">
         <div className="container-wide grid gap-5 md:grid-cols-3">
-          {news.map((item) => (
-            <article key={item.title} className="panel overflow-hidden">
-              <div className="relative h-56 bg-slate-100 dark:bg-white/10">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover"
-                />
-                <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-md bg-white text-orange shadow-sm">
-                  <item.icon size={22} />
-                </span>
+          {content.news.map((item) => (
+            <article key={item.id} className="panel overflow-hidden">
+              <div className="h-56 bg-slate-100 dark:bg-white/10">
+                <img src={item.image} alt="" className="h-full w-full object-cover" />
               </div>
               <div className="p-6">
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-green">{item.date}</p>

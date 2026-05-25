@@ -4,11 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Play, ShieldCheck } from "lucide-react";
-import { academy, athletes, galleryItems, news, sports, stats, tournaments, trustees } from "@/lib/data";
+import { academy, sports, trustees } from "@/lib/data";
 import { SectionHeading } from "@/components/section-heading";
 import { KheloIndiaLogo } from "@/components/official-brand";
+import { useCmsContent } from "@/lib/cms-content";
 
 export default function HomePage() {
+  const { content } = useCmsContent();
+
   return (
     <main>
       <section className="overflow-hidden border-b border-slate-200 bg-white py-4 dark:border-white/10 dark:bg-[#181833]">
@@ -104,17 +107,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#111126] px-5 py-5 text-white sm:px-8 lg:px-12 xl:px-16">
-        <div className="container-wide grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((item) => (
-            <div key={item.label} className="text-center">
-              <p className="font-display text-4xl font-bold text-white">{item.value}</p>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-orange">{item.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <section id="sports" className="section-pad bg-cream dark:bg-[#111126]">
         <div className="container-wide">
           <SectionHeading eyebrow="Approved Sport" title="Basketball pathway for Delhi NCR athletes" copy="KRSA is currently presented as a Khelo India Accredited Academy for basketball, with batch timing and coach details ready for final data." />
@@ -136,79 +128,41 @@ export default function HomePage() {
 
       <section className="section-pad bg-white dark:bg-[#181833]">
         <div className="container-wide">
-          <SectionHeading eyebrow="Featured Athletes" title="Public athlete spotlights and achievement visibility" />
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {athletes.map((athlete) => (
-              <Link href="/athletes" key={athlete.name} className="panel p-5 transition hover:-translate-y-1 hover:shadow-premium">
-                <div className="relative mb-5 h-40 overflow-hidden rounded-md bg-slate-100 dark:bg-white/10">
-                  <Image
-                    src={athlete.image}
-                    alt={`${athlete.name} basketball spotlight at KRSA`}
-                    fill
-                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition duration-500 hover:scale-105"
-                  />
-                  {athlete.kit ? <span className="absolute left-3 top-3 rounded-full bg-green px-3 py-1 text-xs font-bold text-white">KIT</span> : null}
+          <SectionHeading eyebrow="Achievements" title="Academy highlights and recognition" />
+          <div className="grid gap-5 md:grid-cols-2">
+            {content.achievements.map((item) => (
+              <article key={item.id} className="panel overflow-hidden p-0">
+                <div className="h-56 overflow-hidden bg-slate-100 dark:bg-white/10">
+                  <img src={item.image} alt="" className="h-full w-full object-cover transition duration-500 hover:scale-105" />
                 </div>
-                <p className="font-display text-2xl font-bold uppercase text-ink dark:text-white">{athlete.name}</p>
-                <p className="mt-1 text-sm font-bold text-orange">{athlete.sport} | {athlete.batch}</p>
-                <p className="mt-4 text-sm leading-6 text-muted dark:text-white/60">{athlete.achievement}</p>
-              </Link>
+                <div className="p-5">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-green">{item.date}</p>
+                  <h2 className="mt-2 font-display text-3xl font-bold uppercase text-ink dark:text-white">{item.title}</h2>
+                  <p className="mt-4 text-sm leading-6 text-muted dark:text-white/60">{item.description}</p>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       <section className="section-pad bg-cream dark:bg-[#111126]">
-        <div className="container-wide grid gap-10 lg:grid-cols-[1fr_360px]">
-          <div>
-            <SectionHeading eyebrow="News & Updates" title="Announcements, reports and academy notices" />
-            <div className="grid gap-4 md:grid-cols-3">
-              {news.map((item) => (
-                <Link href="/news" key={item.title} className="panel overflow-hidden p-0">
-                  <div className="relative h-40 overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      sizes="(min-width: 768px) 33vw, 100vw"
-                      className="object-cover transition duration-500 hover:scale-105"
-                    />
-                    <span className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-md bg-white text-orange shadow-sm">
-                      <item.icon size={20} />
-                    </span>
-                  </div>
-                  <div className="p-5">
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-green">{item.date}</p>
-                    <h2 className="mt-2 font-display text-2xl font-bold uppercase text-ink dark:text-white">{item.title}</h2>
-                    <p className="mt-3 text-sm leading-6 text-muted dark:text-white/60">{item.excerpt}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <aside className="panel h-fit p-6">
-            <p className="font-display text-2xl font-bold uppercase text-ink dark:text-white">Tournament Results</p>
-            <div className="mt-5 grid gap-4">
-              {tournaments.map((tournament) => (
-                <div key={tournament.name} className="grid grid-cols-[76px_1fr] gap-4 border-b border-slate-200 pb-4 last:border-0 dark:border-white/10">
-                  <div className="relative h-16 overflow-hidden rounded-md bg-slate-100 dark:bg-white/10">
-                    <Image
-                      src={tournament.image}
-                      alt={tournament.name}
-                      fill
-                      sizes="76px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-bold">{tournament.name}</p>
-                    <p className="mt-1 text-sm text-muted dark:text-white/60">{tournament.sport} | {tournament.status}</p>
-                  </div>
+        <div className="container-wide">
+          <SectionHeading eyebrow="News & Updates" title="Announcements, reports and academy notices" />
+          <div className="grid gap-4 md:grid-cols-3">
+            {content.news.map((item) => (
+              <Link href="/news" key={item.id} className="panel overflow-hidden p-0">
+                <div className="h-40 overflow-hidden">
+                  <img src={item.image} alt="" className="h-full w-full object-cover transition duration-500 hover:scale-105" />
                 </div>
-              ))}
-            </div>
-          </aside>
+                <div className="p-5">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-green">{item.date}</p>
+                  <h2 className="mt-2 font-display text-2xl font-bold uppercase text-ink dark:text-white">{item.title}</h2>
+                  <p className="mt-3 text-sm leading-6 text-muted dark:text-white/60">{item.excerpt}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -227,15 +181,9 @@ export default function HomePage() {
         <div className="container-wide">
           <SectionHeading eyebrow="Gallery" title="Training, tournaments and ceremonies" />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {galleryItems.map((item) => (
-              <Link href="/gallery" key={item.title} aria-label={`Open ${item.title} gallery album`} className="group relative block aspect-[4/3] overflow-hidden rounded-lg bg-navy text-white">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
+            {content.gallery.map((item) => (
+              <Link href="/gallery" key={item.id} aria-label="Open gallery album" className="group relative block aspect-[4/3] overflow-hidden rounded-lg bg-navy text-white">
+                <img src={item.image} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
               </Link>
             ))}
           </div>

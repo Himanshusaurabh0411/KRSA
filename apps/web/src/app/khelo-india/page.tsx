@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { ExternalLink, FileText, ShieldCheck } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
-import { academy, athletes } from "@/lib/data";
+import { academy } from "@/lib/data";
 import { AccreditedAcademyPlate, KheloIndiaLogo } from "@/components/official-brand";
 
 export default function KheloIndiaPage() {
-  const kitAthletes = athletes.filter((athlete) => athlete.kit);
-
   return (
     <main>
       <PageHero eyebrow="Khelo India" title="SAI partnership and Khelo India accreditation" copy="A dedicated page for KRSA's accreditation, Silver Category status, KIT athlete reporting obligation and public SAI/Khelo India information." />
@@ -41,21 +39,6 @@ export default function KheloIndiaPage() {
               </div>
             </div>
           </aside>
-        </div>
-      </section>
-      <section className="section-pad bg-white dark:bg-[#181833]">
-        <div className="container-wide">
-          <span className="eyebrow">KIT Athletes</span>
-          <h2 className="mt-4 font-display text-4xl font-bold uppercase text-ink dark:text-white">Khelo India Talent profiles</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            {kitAthletes.map((athlete) => (
-              <div key={athlete.name} className="panel p-6">
-                <p className="font-display text-2xl font-bold uppercase">{athlete.name}</p>
-                <p className="mt-1 text-sm font-bold text-orange">{athlete.sport} | {athlete.coach}</p>
-                <p className="mt-4 text-sm text-muted dark:text-white/60">{athlete.achievement}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </main>

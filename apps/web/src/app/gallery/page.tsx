@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
 import { PageHero } from "@/components/page-hero";
-import { galleryItems } from "@/lib/data";
+import { useCmsContent } from "@/lib/cms-content";
 
 export default function GalleryPage() {
-  const filters = useMemo(() => ["All", ...Array.from(new Set(galleryItems.map((item) => item.category)))], []);
+  const { content } = useCmsContent();
+  const filters = useMemo(() => ["All", ...Array.from(new Set(content.gallery.map((item) => item.category)))], [content.gallery]);
   const [activeFilter, setActiveFilter] = useState("All");
-  const filteredItems = activeFilter === "All" ? galleryItems : galleryItems.filter((item) => item.category === activeFilter);
+  const filteredItems = activeFilter === "All" ? content.gallery : content.gallery.filter((item) => item.category === activeFilter);
 
   return (
     <main>
@@ -38,14 +38,8 @@ export default function GalleryPage() {
           {filteredItems.length > 0 ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filteredItems.map((item) => (
-              <article key={item.title} className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-navy shadow-premium">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
+              <article key={item.id} className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-navy shadow-premium">
+                <img src={item.image} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
               </article>
               ))}
             </div>
