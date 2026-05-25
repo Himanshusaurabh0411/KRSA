@@ -14,7 +14,8 @@ const nav = [
   ["Khelo India", "/khelo-india"],
   ["Gallery", "/gallery"],
   ["News", "/news"],
-  ["Contact", "/contact"]
+  ["Contact", "/contact"],
+  ["Admin Portal", "/admin"]
 ];
 
 export function SiteHeader() {

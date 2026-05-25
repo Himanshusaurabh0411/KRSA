@@ -43,6 +43,7 @@ export function SiteFooter() {
             <Link href="/gallery" className="hover:text-white">Gallery</Link>
             <Link href="/news" className="hover:text-white">News</Link>
             <Link href="/apply" className="hover:text-white">Apply</Link>
+            <Link href="/admin" className="hover:text-white">Admin Portal</Link>
             <Link href={academy.nsrsPortalUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white"><ExternalLink size={14} /> Welcome to NSRS Portal</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>
           </div>
