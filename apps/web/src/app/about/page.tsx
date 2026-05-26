@@ -1,4 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { CoachGrid } from "@/components/coach-grid";
 import { PageHero } from "@/components/page-hero";
 import { SectionHeading } from "@/components/section-heading";
 import { academy, objectives, trustees } from "@/lib/data";
@@ -26,7 +29,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="section-pad bg-cream dark:bg-[#111126]">
+      <section className="section-pad bg-white dark:bg-[#181833]">
         <div className="container-wide">
           <SectionHeading eyebrow="Trustees" title="KRSA trust leadership" />
           <div className="grid gap-6 lg:grid-cols-2">
@@ -65,6 +68,17 @@ export default function AboutPage() {
         </div>
       </section>
       <section className="section-pad bg-white dark:bg-[#181833]">
+        <div className="container-wide">
+          <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <SectionHeading eyebrow="Coaches" title="Basketball coaching team" />
+            <Link href="/coaches" className="btn-secondary w-fit">
+              View All Coaches <ArrowRight size={16} />
+            </Link>
+          </div>
+          <CoachGrid compact />
+        </div>
+      </section>
+      <section className="section-pad bg-cream dark:bg-[#111126]">
         <div className="container-wide">
           <SectionHeading eyebrow="Objectives" title="Trust-deed aligned academy objectives" />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

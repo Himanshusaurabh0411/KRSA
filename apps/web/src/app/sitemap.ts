@@ -4,6 +4,7 @@ const routes = [
   "",
   "about",
   "sports",
+  "coaches",
   "khelo-india",
   "gallery",
   "news",

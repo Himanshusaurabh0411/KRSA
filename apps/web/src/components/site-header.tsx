@@ -11,6 +11,7 @@ const nav = [
   ["Home", "/"],
   ["About", "/about"],
   ["Basketball", "/sports"],
+  ["Coaches", "/coaches"],
   ["Khelo India", "/khelo-india"],
   ["Gallery", "/gallery"],
   ["News", "/news"],

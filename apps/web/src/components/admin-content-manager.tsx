@@ -2,10 +2,11 @@
 
 import { FormEvent, useState } from "react";
 import type { ReactNode } from "react";
-import { ImageIcon, Newspaper, Plus, RotateCcw, Save, Star, Trash2 } from "lucide-react";
+import { ImageIcon, Newspaper, Plus, RotateCcw, Save, Star, Trash2, UserRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
   CmsAchievementItem,
+  CmsCoachItem,
   CmsGalleryItem,
   CmsNewsItem,
   createCmsId,
@@ -15,15 +16,19 @@ import {
 const blankNews: CmsNewsItem = { id: "", title: "", date: "", excerpt: "", image: "" };
 const blankAchievement: CmsAchievementItem = { id: "", title: "", date: "", description: "", image: "" };
 const blankGallery: CmsGalleryItem = { id: "", title: "", type: "Photo", category: "Training", image: "" };
+const blankCoach: CmsCoachItem = { id: "", name: "", role: "", experience: "", summary: "", image: "", education: [], highlights: [], certifications: [] };
 
 const inputClass = "w-full rounded-md border border-slate-300 bg-white px-3 py-3 text-sm outline-none focus:border-orange dark:border-white/10 dark:bg-[#181833]";
 const labelClass = "text-xs font-bold uppercase tracking-[0.14em] text-muted dark:text-white/55";
+const linesToArray = (value: FormDataEntryValue | null) => String(value || "").split("\n").map((item) => item.trim()).filter(Boolean);
+const arrayToText = (items: string[]) => items.join("\n");
 
 export function AdminContentManager() {
   const { content, saveContent, resetContent } = useCmsContent();
   const [newsForm, setNewsForm] = useState<CmsNewsItem>(blankNews);
   const [achievementForm, setAchievementForm] = useState<CmsAchievementItem>(blankAchievement);
   const [galleryForm, setGalleryForm] = useState<CmsGalleryItem>(blankGallery);
+  const [coachForm, setCoachForm] = useState<CmsCoachItem>(blankCoach);
 
   const saveNews = (event: FormEvent) => {
     event.preventDefault();
@@ -57,6 +62,25 @@ export function AdminContentManager() {
     setAchievementForm(blankAchievement);
   };
 
+  const saveCoach = (event: FormEvent) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget as HTMLFormElement);
+    const item = {
+      id: coachForm.id || createCmsId(),
+      name: String(form.get("name") || ""),
+      role: String(form.get("role") || ""),
+      experience: String(form.get("experience") || ""),
+      image: String(form.get("image") || ""),
+      summary: String(form.get("summary") || ""),
+      education: linesToArray(form.get("education")),
+      highlights: linesToArray(form.get("highlights")),
+      certifications: linesToArray(form.get("certifications"))
+    };
+    const coaches = coachForm.id ? content.coaches.map((entry) => (entry.id === item.id ? item : entry)) : [item, ...content.coaches];
+    saveContent({ ...content, coaches });
+    setCoachForm(blankCoach);
+  };
+
   const saveGallery = (event: FormEvent) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget as HTMLFormElement);
@@ -76,10 +100,11 @@ export function AdminContentManager() {
 
   return (
     <div className="grid gap-8">
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <SummaryCard icon={Newspaper} label="News" value={content.news.length} />
         <SummaryCard icon={Star} label="Achievements" value={content.achievements.length} />
         <SummaryCard icon={ImageIcon} label="Gallery" value={content.gallery.length} />
+        <SummaryCard icon={UserRound} label="Coaches" value={content.coaches.length} />
       </div>
 
       <section className="grid gap-5 xl:grid-cols-[420px_1fr]">
@@ -106,6 +131,46 @@ export function AdminContentManager() {
           onDelete={(id) => saveContent({ ...content, news: content.news.filter((item) => item.id !== id) })}
           getTitle={(item) => item.title}
           getMeta={(item) => item.date}
+          getImage={(item) => item.image}
+        />
+      </section>
+
+      <section className="grid gap-5 xl:grid-cols-[420px_1fr]">
+        <form onSubmit={saveCoach} className="panel p-5">
+          <FormTitle icon={UserRound} title={coachForm.id ? "Edit coach" : "Add coach"} />
+          <Field label="Name">
+            <input name="name" required value={coachForm.name} onChange={(event) => setCoachForm({ ...coachForm, name: event.target.value })} className={inputClass} />
+          </Field>
+          <Field label="Role">
+            <input name="role" required value={coachForm.role} onChange={(event) => setCoachForm({ ...coachForm, role: event.target.value })} className={inputClass} placeholder="Head Coach" />
+          </Field>
+          <Field label="Experience">
+            <input name="experience" required value={coachForm.experience} onChange={(event) => setCoachForm({ ...coachForm, experience: event.target.value })} className={inputClass} placeholder="10+ years" />
+          </Field>
+          <Field label="Image URL / public path">
+            <input name="image" required value={coachForm.image} onChange={(event) => setCoachForm({ ...coachForm, image: event.target.value })} className={inputClass} placeholder="/coaches/name.jpeg" />
+          </Field>
+          <Field label="Summary">
+            <textarea name="summary" required value={coachForm.summary} onChange={(event) => setCoachForm({ ...coachForm, summary: event.target.value })} className={`${inputClass} min-h-24 resize-y`} />
+          </Field>
+          <Field label="Education">
+            <textarea name="education" value={arrayToText(coachForm.education)} onChange={(event) => setCoachForm({ ...coachForm, education: linesToArray(event.target.value) })} className={`${inputClass} min-h-28 resize-y`} placeholder="One line per item" />
+          </Field>
+          <Field label="Highlights">
+            <textarea name="highlights" value={arrayToText(coachForm.highlights)} onChange={(event) => setCoachForm({ ...coachForm, highlights: linesToArray(event.target.value) })} className={`${inputClass} min-h-28 resize-y`} placeholder="One line per item" />
+          </Field>
+          <Field label="Certifications / Awards">
+            <textarea name="certifications" value={arrayToText(coachForm.certifications)} onChange={(event) => setCoachForm({ ...coachForm, certifications: linesToArray(event.target.value) })} className={`${inputClass} min-h-24 resize-y`} placeholder="One line per item" />
+          </Field>
+          <FormActions editing={Boolean(coachForm.id)} onCancel={() => setCoachForm(blankCoach)} />
+        </form>
+        <ItemList
+          items={content.coaches}
+          empty="No coaches added"
+          onEdit={setCoachForm}
+          onDelete={(id) => saveContent({ ...content, coaches: content.coaches.filter((item) => item.id !== id) })}
+          getTitle={(item) => item.name}
+          getMeta={(item) => item.role}
           getImage={(item) => item.image}
         />
       </section>

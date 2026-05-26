@@ -8,6 +8,7 @@ import { academy, sports, trustees } from "@/lib/data";
 import { SectionHeading } from "@/components/section-heading";
 import { KheloIndiaLogo } from "@/components/official-brand";
 import { useCmsContent } from "@/lib/cms-content";
+import { CoachGrid } from "@/components/coach-grid";
 
 export default function HomePage() {
   const { content } = useCmsContent();
@@ -128,6 +129,18 @@ export default function HomePage() {
 
       <section className="section-pad bg-white dark:bg-[#181833]">
         <div className="container-wide">
+          <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <SectionHeading eyebrow="Coaches" title="Experienced basketball mentors" />
+            <Link href="/coaches" className="btn-secondary w-fit">
+              View All Coaches <ArrowRight size={16} />
+            </Link>
+          </div>
+          <CoachGrid compact />
+        </div>
+      </section>
+
+      <section className="section-pad bg-cream dark:bg-[#111126]">
+        <div className="container-wide">
           <SectionHeading eyebrow="Achievements" title="Academy highlights and recognition" />
           <div className="grid gap-5 md:grid-cols-2">
             {content.achievements.map((item) => (
@@ -146,7 +159,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-pad bg-cream dark:bg-[#111126]">
+      <section className="section-pad bg-white dark:bg-[#181833]">
         <div className="container-wide">
           <SectionHeading eyebrow="News & Updates" title="Announcements, reports and academy notices" />
           <div className="grid gap-4 md:grid-cols-3">

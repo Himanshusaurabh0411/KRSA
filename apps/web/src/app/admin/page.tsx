@@ -26,7 +26,7 @@ export default async function AdminPage() {
 
   return (
     <main>
-      <PageHero eyebrow="Admin Portal" title="KRSA content control centre" copy="Manage public website news, achievements and gallery images from one internal workspace." />
+      <PageHero eyebrow="Admin Portal" title="KRSA content control centre" copy="Manage public website coaches, news, achievements and gallery images from one internal workspace." />
       <section className="section-pad">
         <div className="container-wide">
           <div className="mb-6 flex flex-col justify-between gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm md:flex-row md:items-center dark:border-white/10 dark:bg-white/5">

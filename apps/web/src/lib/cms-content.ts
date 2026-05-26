@@ -27,10 +27,23 @@ export type CmsAchievementItem = {
   image: string;
 };
 
+export type CmsCoachItem = {
+  id: string;
+  name: string;
+  role: string;
+  experience: string;
+  summary: string;
+  image: string;
+  education: string[];
+  highlights: string[];
+  certifications: string[];
+};
+
 export type CmsContent = {
   news: CmsNewsItem[];
   gallery: CmsGalleryItem[];
   achievements: CmsAchievementItem[];
+  coaches: CmsCoachItem[];
 };
 
 export const CMS_STORAGE_KEY = "krsa-public-content-v1";
@@ -79,6 +92,89 @@ export const getDefaultCmsContent = (): CmsContent => ({
       description: "The academy continues to train young basketball players through structured batches, camps and court sessions.",
       image: "/media/gallery/krsa-gallery-team-lineup.jpg"
     }
+  ],
+  coaches: [
+    {
+      id: createCmsId(),
+      name: "Mrs. Vidhya Ramanarayanan",
+      role: "Female Coach, Krishna Rattan Sports Academy",
+      experience: "40+ years in basketball",
+      summary:
+        "Dedicated basketball coach and former national-level player known for promoting women's basketball and building strong school teams.",
+      image: "/coaches/vidhya-ramanarayanan.jpeg",
+      education: ["Bachelor of Commerce (B.Com)", "Diploma in Basketball, 1982"],
+      highlights: [
+        "Coach, School Basketball Team at KRSA",
+        "Represented India at the 1982 Asian Games, New Delhi",
+        "Junior India Team, 1980",
+        "Indian Railways Basketball Team from 1979"
+      ],
+      certifications: ["Recipient of Railway Minister Madhav Rao Scindia Award"]
+    },
+    {
+      id: createCmsId(),
+      name: "Mr. Ashok Rangeen",
+      role: "Head Coach, Krishna Rattan Sports Academy",
+      experience: "35+ years in basketball coaching",
+      summary:
+        "Senior basketball coach with national and international coaching experience, discipline-focused training methods and long-term school coaching leadership.",
+      image: "/coaches/ashok-rangeen.jpeg",
+      education: ["B.Com", "B.P.Ed", "NIS Diploma in Basketball Coaching, 1976-1977"],
+      highlights: [
+        "Basketball Coach, National Institute of Sports (NIS), 1979-1980",
+        "Coach, Delhi Public School Mathura Road, 1980-2016",
+        "Member, Basketball Federation of India",
+        "Member, Delhi Basketball Association"
+      ],
+      certifications: ["FIBA Certified International Coach"]
+    },
+    {
+      id: createCmsId(),
+      name: "Ajmer Singh",
+      role: "Basketball Coach",
+      experience: "10+ years of experience",
+      summary:
+        "Energetic basketball coach with experience in mentoring students, strengthening and conditioning, and developing players for higher-level competition.",
+      image: "/coaches/ajmer-singh.jpeg",
+      education: [
+        "Graduation from MDU University Rohtak, Haryana, 2006",
+        "B.P.Ed from Singhania University, 2019",
+        "Diploma in Sports Coaching (Basketball), 2016-2020",
+        "Strength and Conditioning course from AFMSC Pune",
+        "Certificate course, NIS Patiala"
+      ],
+      highlights: [
+        "Coach, Army RED team at Delhi Subroto Park",
+        "Coached 200+ national-level players",
+        "Coached 20+ international-level players",
+        "Skilled in communication, leadership, time management and first aid"
+      ],
+      certifications: ["Diploma in Sports Coaching (Basketball)", "Certificate course, NIS Patiala"]
+    },
+    {
+      id: createCmsId(),
+      name: "Naresh Hooda",
+      role: "Basketball Coach",
+      experience: "Young coach with national coaching exposure",
+      summary:
+        "Basketball coach with NIS training, WABC Level 1 clearance and experience across clubs, schools and college-level basketball programs.",
+      image: "/coaches/naresh-hooda.jpeg",
+      education: [
+        "Six-week Certification Course (Basketball), NIS Patiala, 2019",
+        "Graduation, Kirorimal College, Delhi University, 2021",
+        "Diploma in Sports Coaching (Basketball), NIS Patiala, 2022",
+        "WABC Level 1 cleared, 2022",
+        "B.P.Ed, 2024"
+      ],
+      highlights: [
+        "Represented Delhi as basketball coach at Hyderabad 2024 national tournament, Silver Medal",
+        "Represented Delhi as basketball coach at Puducherry 2023 national tournament",
+        "Basketball Coach at Roshanara Club for 3 years",
+        "Basketball Coach at Mater Dei School for 2 years",
+        "Basketball Coach at SRCC College for 2 years"
+      ],
+      certifications: ["NIS Basketball Certification", "WABC Level 1 cleared"]
+    }
   ]
 });
 
@@ -101,7 +197,8 @@ const readStoredContent = (): CmsContent => {
     return {
       news: parsed.news?.length ? parsed.news : fallback.news,
       gallery: parsed.gallery?.length ? parsed.gallery : fallback.gallery,
-      achievements: parsed.achievements?.length ? parsed.achievements : fallback.achievements
+      achievements: parsed.achievements?.length ? parsed.achievements : fallback.achievements,
+      coaches: parsed.coaches?.length ? parsed.coaches : fallback.coaches
     };
   } catch {
     return fallback;

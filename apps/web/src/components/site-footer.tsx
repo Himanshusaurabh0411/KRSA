@@ -40,6 +40,7 @@ export function SiteFooter() {
           <p className="mb-4 font-display text-lg font-semibold">Quick Links</p>
           <div className="grid gap-2 text-sm text-white/55">
             <Link href="/khelo-india" className="hover:text-white">Khelo India</Link>
+            <Link href="/coaches" className="hover:text-white">Coaches</Link>
             <Link href="/gallery" className="hover:text-white">Gallery</Link>
             <Link href="/news" className="hover:text-white">News</Link>
             <Link href="/apply" className="hover:text-white">Apply</Link>
