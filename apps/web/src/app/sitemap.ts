@@ -13,7 +13,7 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://krsasports.in";
+  const baseUrl = "https://krsadelhi.in";
   return routes.map((route) => ({
     url: `${baseUrl}/${route}`.replace(/\/$/, ""),
     lastModified: new Date(),

@@ -1,4 +1,5 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import Link from "next/link";
+import { Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { academy } from "@/lib/data";
 
@@ -11,7 +12,17 @@ export default function ContactPage() {
           <div className="grid gap-4">
             <div className="panel p-6"><MapPin className="text-orange" /><p className="mt-4 font-bold">{academy.address}</p></div>
             <div className="panel p-6"><Phone className="text-orange" /><p className="mt-4 font-bold">{academy.contact}</p></div>
-            <div className="panel p-6"><Mail className="text-orange" /><p className="mt-4 font-bold">admissions@{academy.domain}</p></div>
+            <div className="panel p-6"><Mail className="text-orange" /><p className="mt-4 font-bold">{academy.email}</p></div>
+            {academy.social.whatsappUrl ? (
+              <Link href={academy.social.whatsappUrl} target="_blank" rel="noopener noreferrer" className="panel p-6 transition hover:-translate-y-1 hover:shadow-premium">
+                <MessageCircle className="text-orange" /><p className="mt-4 font-bold">Chat on WhatsApp</p>
+              </Link>
+            ) : null}
+            {academy.social.instagramUrl ? (
+              <Link href={academy.social.instagramUrl} target="_blank" rel="noopener noreferrer" className="panel p-6 transition hover:-translate-y-1 hover:shadow-premium">
+                <Instagram className="text-orange" /><p className="mt-4 font-bold">Open Instagram</p>
+              </Link>
+            ) : null}
           </div>
           <form className="panel p-6 md:p-8">
             <div className="grid gap-5 md:grid-cols-2">

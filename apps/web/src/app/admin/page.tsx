@@ -14,7 +14,7 @@ export default async function AdminPage() {
   if (!session) {
     return (
       <main>
-        <PageHero eyebrow="Admin Portal" title="Secure KRSA admin access" copy="Use OTP verification before opening website content controls." />
+        <PageHero eyebrow="Admin Portal" title="Secure KRSA admin access" copy="Use the approved admin email and password before opening website content controls." />
         <section className="section-pad">
           <div className="container-wide">
             <AdminOtpLogin />

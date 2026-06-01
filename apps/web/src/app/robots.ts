@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/login", "/admin", "/dashboard", "/portal"]
       }
     ],
-    sitemap: "https://krsasports.in/sitemap.xml"
+    sitemap: "https://krsadelhi.in/sitemap.xml"
   };
 }

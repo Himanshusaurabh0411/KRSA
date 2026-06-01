@@ -2,18 +2,42 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { KeyRound, Loader2, ShieldCheck } from "lucide-react";
+import { KeyRound, Loader2, LockKeyhole, ShieldCheck } from "lucide-react";
 
 const inputClass = "w-full rounded-md border border-slate-300 bg-white px-3 py-3 text-sm outline-none focus:border-orange dark:border-white/10 dark:bg-[#181833]";
 
 export function AdminOtpLogin() {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
+  const [mode, setMode] = useState<"password" | "otp">("password");
   const [step, setStep] = useState<"email" | "otp">("email");
   const [message, setMessage] = useState("");
   const [otpPreview, setOtpPreview] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const loginWithPassword = async (event: FormEvent) => {
+    event.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    const response = await fetch("/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const data = (await response.json().catch(() => ({}))) as { message?: string };
+
+    setLoading(false);
+
+    if (!response.ok) {
+      setMessage(data.message || "Admin login failed.");
+      return;
+    }
+
+    router.refresh();
+  };
 
   const requestOtp = async (event: FormEvent) => {
     event.preventDefault();
@@ -67,12 +91,12 @@ export function AdminOtpLogin() {
             <ShieldCheck size={22} />
           </span>
           <div>
-            <p className="font-display text-2xl font-bold uppercase text-ink dark:text-white">Admin OTP Login</p>
-            <p className="text-sm text-muted dark:text-white/60">Enter the approved admin email to receive a one-time password.</p>
+            <p className="font-display text-2xl font-bold uppercase text-ink dark:text-white">Admin Login</p>
+            <p className="text-sm text-muted dark:text-white/60">Use the approved KRSA admin email and password.</p>
           </div>
         </div>
 
-        <form onSubmit={step === "email" ? requestOtp : verifyOtp} className="grid gap-4">
+        <form onSubmit={mode === "password" ? loginWithPassword : step === "email" ? requestOtp : verifyOtp} className="grid gap-4">
           <label className="grid gap-2">
             <span className="text-xs font-bold uppercase tracking-[0.14em] text-muted dark:text-white/55">Admin email</span>
             <input
@@ -80,13 +104,27 @@ export function AdminOtpLogin() {
               required
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              disabled={step === "otp"}
+              disabled={mode === "otp" && step === "otp"}
               className={inputClass}
-              placeholder="admin@example.com"
+              placeholder="Info@krsadelhi.in"
             />
           </label>
 
-          {step === "otp" ? (
+          {mode === "password" ? (
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-[0.14em] text-muted dark:text-white/55">Password</span>
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className={inputClass}
+                autoComplete="current-password"
+              />
+            </label>
+          ) : null}
+
+          {mode === "otp" && step === "otp" ? (
             <label className="grid gap-2">
               <span className="text-xs font-bold uppercase tracking-[0.14em] text-muted dark:text-white/55">6-digit OTP</span>
               <input
@@ -105,10 +143,25 @@ export function AdminOtpLogin() {
 
           <div className="flex flex-wrap gap-2">
             <button type="submit" disabled={loading} className="btn-primary disabled:cursor-not-allowed disabled:opacity-60">
-              {loading ? <Loader2 className="animate-spin" size={18} /> : <KeyRound size={18} />}
-              {step === "email" ? "Send OTP" : "Verify OTP"}
+              {loading ? <Loader2 className="animate-spin" size={18} /> : mode === "password" ? <LockKeyhole size={18} /> : <KeyRound size={18} />}
+              {mode === "password" ? "Login" : step === "email" ? "Send OTP" : "Verify OTP"}
             </button>
-            {step === "otp" ? (
+            {mode === "password" ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setMode("otp");
+                  setStep("email");
+                  setOtp("");
+                  setMessage("");
+                  setOtpPreview("");
+                }}
+                className="btn-secondary"
+              >
+                Use OTP
+              </button>
+            ) : null}
+            {mode === "otp" && step === "otp" ? (
               <button
                 type="button"
                 onClick={() => {
@@ -120,6 +173,21 @@ export function AdminOtpLogin() {
                 className="btn-secondary"
               >
                 Change Email
+              </button>
+            ) : null}
+            {mode === "otp" ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setMode("password");
+                  setStep("email");
+                  setOtp("");
+                  setMessage("");
+                  setOtpPreview("");
+                }}
+                className="btn-secondary"
+              >
+                Use Password
               </button>
             ) : null}
           </div>

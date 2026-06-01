@@ -15,25 +15,19 @@ export default function HomePage() {
 
   return (
     <main>
-      <section className="overflow-hidden border-b border-slate-200 bg-white py-4 dark:border-white/10 dark:bg-[#181833]">
-        <motion.div
-          className="flex w-max gap-6"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 22, ease: "linear", repeat: Infinity }}
-        >
-          {[0, 1, 2, 3].map((item) => (
-            <div key={item} className="relative h-20 w-[420px] shrink-0 overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm sm:h-24 sm:w-[560px] lg:h-28 lg:w-[700px] dark:border-white/10">
-              <Image
-                src="/brand/krsa-academy-banner.jpeg"
-                alt="Krishna Rattan Sports Academy Khelo India Accredited Academy banner"
-                fill
-                sizes="(min-width: 1024px) 700px, (min-width: 640px) 560px, 420px"
-                className="object-contain"
-                priority={item === 0}
-              />
-            </div>
-          ))}
-        </motion.div>
+      <section className="overflow-hidden border-b border-slate-200 bg-white px-5 py-4 dark:border-white/10 dark:bg-[#181833] sm:px-8 lg:px-12 xl:px-16">
+        <div className="container-wide">
+          <div className="relative aspect-[1175/224] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm dark:border-white/10">
+            <Image
+              src="/brand/krsa-academy-banner.jpeg"
+              alt="Krishna Rattan Sports Academy Khelo India Accredited Academy banner"
+              fill
+              sizes="(min-width: 1280px) 1280px, 100vw"
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
       </section>
 
       <section className="relative overflow-hidden bg-navy px-5 py-20 text-white sm:px-8 lg:px-12 xl:px-16">

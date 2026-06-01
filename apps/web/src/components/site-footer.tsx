@@ -1,9 +1,15 @@
 import Link from "next/link";
-import { ExternalLink, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { ExternalLink, Instagram, Mail, MessageCircle } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { academy, sports } from "@/lib/data";
 import { KheloIndiaLogo, KRSALogo } from "@/components/official-brand";
 
 export function SiteFooter() {
+  const socialLinks = [
+    academy.social.whatsappUrl ? { label: "WhatsApp", href: academy.social.whatsappUrl, icon: MessageCircle } : null,
+    academy.social.instagramUrl ? { label: "Instagram", href: academy.social.instagramUrl, icon: Instagram } : null
+  ].filter(Boolean) as { label: string; href: string; icon: LucideIcon }[];
+
   return (
     <footer className="bg-[#111126] px-5 py-12 text-white sm:px-8 lg:px-12 xl:px-16">
       <div className="container-wide grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -48,16 +54,20 @@ export function SiteFooter() {
             <Link href={academy.nsrsPortalUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white"><ExternalLink size={14} /> Welcome to NSRS Portal</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>
           </div>
-          <div className="mt-6 flex gap-3 text-white/60">
-            <Youtube size={18} aria-label="YouTube" />
-            <Instagram size={18} aria-label="Instagram" />
-            <Facebook size={18} aria-label="Facebook" />
-            <Twitter size={18} aria-label="Twitter/X" />
+          <div className="mt-6 flex flex-wrap gap-3 text-white/60">
+            {socialLinks.map(({ label, href, icon: Icon }) => (
+              <Link key={label} href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-bold hover:border-white/30 hover:text-white">
+                <Icon size={18} /> {label}
+              </Link>
+            ))}
+            <Link href={`mailto:${academy.email}`} className="inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-bold hover:border-white/30 hover:text-white">
+              <Mail size={18} /> Email
+            </Link>
           </div>
         </div>
       </div>
       <div className="container-wide mt-10 flex flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/35 md:flex-row md:items-center md:justify-between">
-        <span>Copyright KRSA. Privacy Policy | Terms. Recommended domain: {academy.domain}</span>
+        <span>Copyright KRSA. Privacy Policy | Terms. Official domain: {academy.domain}</span>
         <span>
           Made by{" "}
           <Link href={academy.techPartner.url} target="_blank" rel="noopener noreferrer" className="font-bold text-orange hover:text-white">

@@ -31,11 +31,16 @@ export const academy = {
   designationHi: "खेलो इंडिया मान्यता प्राप्त अकादमी",
   designationEn: "KHELO INDIA ACCREDITED ACADEMY",
   nsrsPortalUrl: "https://account.kheloindia.gov.in/#/login?appId=zij54QFtvO",
+  email: "info@krsadelhi.in",
+  social: {
+    whatsappUrl: process.env.NEXT_PUBLIC_KRSA_WHATSAPP_URL || "",
+    instagramUrl: process.env.NEXT_PUBLIC_KRSA_INSTAGRAM_URL || ""
+  },
   techPartner: {
     name: "Whizz Dream Big",
     url: "https://www.whizzdreambig.com/"
   },
-  domain: "krsasports.in",
+  domain: "krsadelhi.in",
   mission:
     "To provide world-class sports coaching, education and moral training to children from all sections of society including SC/ST and weaker sections, in partnership with the Khelo India programme.",
   vision:

@@ -1,10 +1,11 @@
-import { createHmac, randomInt, timingSafeEqual } from "node:crypto";
+import { createHmac, randomInt, scryptSync, timingSafeEqual } from "node:crypto";
 
 export const ADMIN_SESSION_COOKIE = "krsa_admin_session";
 export const ADMIN_OTP_COOKIE = "krsa_admin_otp_challenge";
 
 const OTP_TTL_MINUTES = 10;
 const DEFAULT_SESSION_HOURS = 8;
+const PASSWORD_HASH_BYTES = 64;
 
 export type AdminSession = {
   email: string;
@@ -62,6 +63,25 @@ export const getAllowedAdminEmails = () =>
 export const isAllowedAdminEmail = (email: string) => {
   const allowedEmails = getAllowedAdminEmails();
   return allowedEmails.length > 0 && allowedEmails.includes(normalizeAdminEmail(email));
+};
+
+export const isAdminPasswordConfigured = () => Boolean(process.env.ADMIN_PASSWORD_HASH);
+
+export const verifyAdminPassword = (password: string) => {
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH || "";
+  const [salt, expectedHash] = passwordHash.split(":");
+
+  if (!salt || !expectedHash || !password) return false;
+
+  try {
+    const actualHash = scryptSync(password, salt, PASSWORD_HASH_BYTES).toString("base64url");
+    const actualBuffer = Buffer.from(actualHash);
+    const expectedBuffer = Buffer.from(expectedHash);
+
+    return actualBuffer.length === expectedBuffer.length && timingSafeEqual(actualBuffer, expectedBuffer);
+  } catch {
+    return false;
+  }
 };
 
 export const createOtp = () => randomInt(100000, 1000000).toString();

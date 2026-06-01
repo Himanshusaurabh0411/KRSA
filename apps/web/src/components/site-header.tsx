@@ -73,7 +73,7 @@ export function SiteHeader() {
         </div>
       </div>
       {open ? (
-        <div className="border-t border-white/10 bg-[#27274b] px-5 py-4 lg:hidden">
+        <div className="border-t border-white/10 bg-[#27274b] px-5 py-4 xl:hidden">
           <nav className="grid gap-2">
             {nav.map(([label, href]) => (
               <Link key={href} href={href} onClick={() => setOpen(false)} className="rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:bg-white/10">

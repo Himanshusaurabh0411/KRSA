@@ -9,7 +9,7 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://krsasports.in"),
+  metadataBase: new URL("https://krsadelhi.in"),
   title: "KRSA | Krishna Rattan Sports Academy",
   description: "Official website and athlete management portal for Krishna Rattan Sports Academy, a Khelo India Accredited Basketball Academy in Wazirabad, Delhi.",
   keywords: ["basketball academy Delhi", "Khelo India basketball academy Wazirabad", "basketball coaching Delhi", "KRSA", "Krishna Rattan Sports Academy"],

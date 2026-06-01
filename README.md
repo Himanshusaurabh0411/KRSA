@@ -94,15 +94,19 @@ The web app runs on `http://localhost:3000`; the API runs on `http://localhost:4
    - Add `NEXT_PUBLIC_RAZORPAY_KEY_ID`.
    - Add admin OTP env vars:
      - `ADMIN_EMAILS=admin1@example.com,admin2@example.com`
+     - `ADMIN_PASSWORD_HASH=<salt:scrypt-hash>`
      - `ADMIN_OTP_SECRET=<strong-random-secret>`
      - `RESEND_API_KEY=<resend-api-key>`
      - `ADMIN_OTP_FROM="KRSA Admin <admin@your-domain.com>"`
+   - Optional public social links:
+     - `NEXT_PUBLIC_KRSA_WHATSAPP_URL=https://wa.me/<number>`
+     - `NEXT_PUBLIC_KRSA_INSTAGRAM_URL=https://instagram.com/<handle>`
 4. Add the Razorpay webhook URL: `https://your-api-domain.com/api/payments/webhook`.
 
 ## Production Notes
 
 - Use a strong `JWT_SECRET`, Atlas IP access rules, and HTTPS-only frontend/backend URLs.
-- Keep `ADMIN_OTP_TEST_MODE=false` in production. The admin portal at `/admin` requires an allowlisted email and OTP email delivery before content controls open.
+- Keep `ADMIN_OTP_TEST_MODE=false` in production. The admin portal at `/admin` requires an allowlisted email and password, with OTP available as a fallback when email delivery is configured.
 - Store uploaded documents in S3/Cloudinary in production; the local multer disk adapter is intentionally replaceable.
 - Keep Razorpay webhook verification enabled and never trust client-side payment status alone.
 - Add observability with Sentry/Logtail and API rate limits per route before public launch.
