@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ExternalLink, Instagram, Mail, MessageCircle } from "lucide-react";
+import { ExternalLink, Instagram, Mail, MessageCircle, Youtube } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { academy, sports } from "@/lib/data";
 import { KheloIndiaLogo, KRSALogo } from "@/components/official-brand";
@@ -7,7 +7,8 @@ import { KheloIndiaLogo, KRSALogo } from "@/components/official-brand";
 export function SiteFooter() {
   const socialLinks = [
     academy.social.whatsappUrl ? { label: "WhatsApp", href: academy.social.whatsappUrl, icon: MessageCircle } : null,
-    academy.social.instagramUrl ? { label: "Instagram", href: academy.social.instagramUrl, icon: Instagram } : null
+    academy.social.instagramUrl ? { label: "Instagram", href: academy.social.instagramUrl, icon: Instagram } : null,
+    academy.social.youtubeUrl ? { label: "YouTube", href: academy.social.youtubeUrl, icon: Youtube } : null
   ].filter(Boolean) as { label: string; href: string; icon: LucideIcon }[];
 
   return (

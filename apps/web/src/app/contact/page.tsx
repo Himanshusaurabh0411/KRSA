@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Instagram, Mail, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { academy } from "@/lib/data";
 
@@ -21,6 +21,11 @@ export default function ContactPage() {
             {academy.social.instagramUrl ? (
               <Link href={academy.social.instagramUrl} target="_blank" rel="noopener noreferrer" className="panel p-6 transition hover:-translate-y-1 hover:shadow-premium">
                 <Instagram className="text-orange" /><p className="mt-4 font-bold">Open Instagram</p>
+              </Link>
+            ) : null}
+            {academy.social.youtubeUrl ? (
+              <Link href={academy.social.youtubeUrl} target="_blank" rel="noopener noreferrer" className="panel p-6 transition hover:-translate-y-1 hover:shadow-premium">
+                <Youtube className="text-orange" /><p className="mt-4 font-bold">Open YouTube</p>
               </Link>
             ) : null}
           </div>

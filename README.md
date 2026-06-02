@@ -101,6 +101,7 @@ The web app runs on `http://localhost:3000`; the API runs on `http://localhost:4
    - Optional public social links:
      - `NEXT_PUBLIC_KRSA_WHATSAPP_URL=https://wa.me/<number>`
      - `NEXT_PUBLIC_KRSA_INSTAGRAM_URL=https://instagram.com/<handle>`
+     - `NEXT_PUBLIC_KRSA_YOUTUBE_URL=https://youtube.com/@handle`
 4. Add the Razorpay webhook URL: `https://your-api-domain.com/api/payments/webhook`.
 
 ## Production Notes

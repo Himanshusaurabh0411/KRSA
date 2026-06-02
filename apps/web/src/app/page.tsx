@@ -15,19 +15,25 @@ export default function HomePage() {
 
   return (
     <main>
-      <section className="overflow-hidden border-b border-slate-200 bg-white px-5 py-4 dark:border-white/10 dark:bg-[#181833] sm:px-8 lg:px-12 xl:px-16">
-        <div className="container-wide">
-          <div className="relative aspect-[1175/224] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm dark:border-white/10">
-            <Image
-              src="/brand/krsa-academy-banner.jpeg"
-              alt="Krishna Rattan Sports Academy Khelo India Accredited Academy banner"
-              fill
-              sizes="(min-width: 1280px) 1280px, 100vw"
-              className="object-contain"
-              priority
-            />
-          </div>
-        </div>
+      <section className="overflow-hidden border-b border-slate-200 bg-white py-4 dark:border-white/10 dark:bg-[#181833]">
+        <motion.div
+          className="flex w-max gap-5 px-5 sm:px-8 lg:px-12 xl:px-16"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 24, ease: "linear", repeat: Infinity }}
+        >
+          {[0, 1, 2, 3].map((item) => (
+            <div key={item} className="relative aspect-[1175/224] w-[min(86vw,1175px)] shrink-0 overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm dark:border-white/10">
+              <Image
+                src="/brand/krsa-academy-banner.jpeg"
+                alt="Krishna Rattan Sports Academy Khelo India Accredited Academy banner"
+                fill
+                sizes="(min-width: 1280px) 1175px, 86vw"
+                className="object-contain"
+                priority={item === 0}
+              />
+            </div>
+          ))}
+        </motion.div>
       </section>
 
       <section className="relative overflow-hidden bg-navy px-5 py-20 text-white sm:px-8 lg:px-12 xl:px-16">
@@ -139,8 +145,12 @@ export default function HomePage() {
           <div className="grid gap-5 md:grid-cols-2">
             {content.achievements.map((item) => (
               <article key={item.id} className="panel overflow-hidden p-0">
-                <div className="h-56 overflow-hidden bg-slate-100 dark:bg-white/10">
-                  <img src={item.image} alt="" className="h-full w-full object-cover transition duration-500 hover:scale-105" />
+                <div className={`${item.image.includes("krsa-academy-banner") ? "aspect-[1175/224]" : "h-56"} overflow-hidden bg-white dark:bg-white/10`}>
+                  <img
+                    src={item.image}
+                    alt=""
+                    className={`h-full w-full transition duration-500 hover:scale-105 ${item.image.includes("krsa-academy-banner") ? "object-contain" : "object-cover"}`}
+                  />
                 </div>
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-[0.16em] text-green">{item.date}</p>

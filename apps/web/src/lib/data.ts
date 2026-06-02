@@ -33,8 +33,13 @@ export const academy = {
   nsrsPortalUrl: "https://account.kheloindia.gov.in/#/login?appId=zij54QFtvO",
   email: "info@krsadelhi.in",
   social: {
-    whatsappUrl: process.env.NEXT_PUBLIC_KRSA_WHATSAPP_URL || "",
-    instagramUrl: process.env.NEXT_PUBLIC_KRSA_INSTAGRAM_URL || ""
+    whatsappUrl: process.env.NEXT_PUBLIC_KRSA_WHATSAPP_URL || "https://wa.me/919555891089",
+    instagramUrl:
+      process.env.NEXT_PUBLIC_KRSA_INSTAGRAM_URL ||
+      "https://www.instagram.com/krishna_rattan_sports_academy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    youtubeUrl:
+      process.env.NEXT_PUBLIC_KRSA_YOUTUBE_URL ||
+      "https://youtube.com/@krishnarattansportsacademy?si=7B1dX5b9rtaM9_Wn"
   },
   techPartner: {
     name: "Whizz Dream Big",
