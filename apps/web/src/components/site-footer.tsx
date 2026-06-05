@@ -1,15 +1,23 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ExternalLink, Instagram, Mail, MessageCircle, Youtube } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { academy, sports } from "@/lib/data";
 import { KheloIndiaLogo, KRSALogo } from "@/components/official-brand";
 
 export function SiteFooter() {
+  const pathname = usePathname();
   const socialLinks = [
     academy.social.whatsappUrl ? { label: "WhatsApp", href: academy.social.whatsappUrl, icon: MessageCircle } : null,
     academy.social.instagramUrl ? { label: "Instagram", href: academy.social.instagramUrl, icon: Instagram } : null,
     academy.social.youtubeUrl ? { label: "YouTube", href: academy.social.youtubeUrl, icon: Youtube } : null
   ].filter(Boolean) as { label: string; href: string; icon: LucideIcon }[];
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <footer className="bg-[#111126] px-5 py-12 text-white sm:px-8 lg:px-12 xl:px-16">
