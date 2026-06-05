@@ -1,8 +1,22 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import type { ReactNode } from "react";
-import { CheckCircle2, ImageIcon, Newspaper, Pencil, Plus, RotateCcw, Save, Star, Trash2, UserRound } from "lucide-react";
+import { upload } from "@vercel/blob/client";
+import {
+  AlertCircle,
+  CheckCircle2,
+  ImageIcon,
+  Newspaper,
+  Pencil,
+  Plus,
+  RotateCcw,
+  Save,
+  Trash2,
+  UploadCloud,
+  UserRound,
+  Star
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
   CmsAchievementItem,
@@ -22,6 +36,20 @@ const inputClass = "w-full rounded-md border border-slate-300 bg-white px-3 py-3
 const labelClass = "text-xs font-bold uppercase tracking-[0.14em] text-muted dark:text-white/55";
 const linesToArray = (value: FormDataEntryValue | null) => String(value || "").split("\n").map((item) => item.trim()).filter(Boolean);
 const arrayToText = (items: string[]) => items.join("\n");
+const MAX_IMAGE_SIZE = 8 * 1024 * 1024;
+const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
+const safeUploadName = (fileName: string) => {
+  const extension = fileName.split(".").pop()?.toLowerCase() || "jpg";
+  const baseName = fileName
+    .replace(/\.[^.]+$/, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+    .slice(0, 54);
+
+  return `${Date.now()}-${baseName || "krsa-image"}.${extension}`;
+};
 
 export function AdminContentManager() {
   const { content, ready, saveContent, resetContent } = useCmsContent();
@@ -30,11 +58,25 @@ export function AdminContentManager() {
   const [galleryForm, setGalleryForm] = useState<CmsGalleryItem>(blankGallery);
   const [coachForm, setCoachForm] = useState<CmsCoachItem>(blankCoach);
   const [status, setStatus] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
-  const commitContent = (nextContent: typeof content, message: string) => {
-    saveContent(nextContent);
+  const showStatus = (message: string) => {
     setStatus(message);
     window.setTimeout(() => setStatus(""), 2800);
+  };
+
+  const commitContent = async (nextContent: typeof content, message: string) => {
+    setIsSaving(true);
+    const result = await saveContent(nextContent);
+    setIsSaving(false);
+
+    if (result.ok) {
+      showStatus(message);
+      return true;
+    }
+
+    showStatus(result.message || "Saved locally, but could not publish to the live website.");
+    return false;
   };
 
   const confirmDelete = (label: string, title: string, onConfirm: () => void) => {
@@ -43,7 +85,7 @@ export function AdminContentManager() {
     }
   };
 
-  const saveNews = (event: FormEvent) => {
+  const saveNews = async (event: FormEvent) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget as HTMLFormElement);
     const item = {
@@ -54,11 +96,12 @@ export function AdminContentManager() {
       excerpt: String(form.get("excerpt") || "")
     };
     const news = newsForm.id ? content.news.map((entry) => (entry.id === item.id ? item : entry)) : [item, ...content.news];
-    commitContent({ ...content, news }, newsForm.id ? "News updated." : "News added.");
-    setNewsForm(blankNews);
+    if (await commitContent({ ...content, news }, newsForm.id ? "News updated." : "News added.")) {
+      setNewsForm(blankNews);
+    }
   };
 
-  const saveAchievement = (event: FormEvent) => {
+  const saveAchievement = async (event: FormEvent) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget as HTMLFormElement);
     const item = {
@@ -71,11 +114,12 @@ export function AdminContentManager() {
     const achievements = achievementForm.id
       ? content.achievements.map((entry) => (entry.id === item.id ? item : entry))
       : [item, ...content.achievements];
-    commitContent({ ...content, achievements }, achievementForm.id ? "Achievement updated." : "Achievement added.");
-    setAchievementForm(blankAchievement);
+    if (await commitContent({ ...content, achievements }, achievementForm.id ? "Achievement updated." : "Achievement added.")) {
+      setAchievementForm(blankAchievement);
+    }
   };
 
-  const saveCoach = (event: FormEvent) => {
+  const saveCoach = async (event: FormEvent) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget as HTMLFormElement);
     const item = {
@@ -90,11 +134,12 @@ export function AdminContentManager() {
       certifications: linesToArray(form.get("certifications"))
     };
     const coaches = coachForm.id ? content.coaches.map((entry) => (entry.id === item.id ? item : entry)) : [item, ...content.coaches];
-    commitContent({ ...content, coaches }, coachForm.id ? "Coach updated." : "Coach added.");
-    setCoachForm(blankCoach);
+    if (await commitContent({ ...content, coaches }, coachForm.id ? "Coach updated." : "Coach added.")) {
+      setCoachForm(blankCoach);
+    }
   };
 
-  const saveGallery = (event: FormEvent) => {
+  const saveGallery = async (event: FormEvent) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget as HTMLFormElement);
     const item = {
@@ -107,8 +152,9 @@ export function AdminContentManager() {
     const gallery = galleryForm.id
       ? content.gallery.map((entry) => (entry.id === item.id ? item : entry))
       : [item, ...content.gallery];
-    commitContent({ ...content, gallery }, galleryForm.id ? "Gallery image updated." : "Gallery image added.");
-    setGalleryForm(blankGallery);
+    if (await commitContent({ ...content, gallery }, galleryForm.id ? "Gallery image updated." : "Gallery image added.")) {
+      setGalleryForm(blankGallery);
+    }
   };
 
   return (
@@ -120,6 +166,12 @@ export function AdminContentManager() {
       {status ? (
         <div className="flex items-center gap-2 rounded-md border border-green/30 bg-green/10 px-4 py-3 text-sm font-bold text-green">
           <CheckCircle2 size={18} /> {status}
+        </div>
+      ) : null}
+
+      {isSaving ? (
+        <div className="rounded-md border border-orange/30 bg-orange/10 px-4 py-3 text-sm font-bold text-orange">
+          Publishing website content...
         </div>
       ) : null}
 
@@ -139,9 +191,13 @@ export function AdminContentManager() {
           <Field label="Date">
             <input name="date" required value={newsForm.date} onChange={(event) => setNewsForm({ ...newsForm, date: event.target.value })} className={inputClass} placeholder="25 May 2026" />
           </Field>
-          <Field label="Image URL / public path">
-            <input name="image" required value={newsForm.image} onChange={(event) => setNewsForm({ ...newsForm, image: event.target.value })} className={inputClass} placeholder="/media/news/photo.jpg" />
-          </Field>
+          <ImageUploadField
+            label="Image"
+            folder="news"
+            value={newsForm.image}
+            onChange={(image) => setNewsForm({ ...newsForm, image })}
+            placeholder="/media/news/photo.jpg"
+          />
           <Field label="Excerpt">
             <textarea name="excerpt" required value={newsForm.excerpt} onChange={(event) => setNewsForm({ ...newsForm, excerpt: event.target.value })} className={`${inputClass} min-h-28 resize-y`} />
           </Field>
@@ -153,7 +209,7 @@ export function AdminContentManager() {
           onEdit={setNewsForm}
           onDelete={(item) =>
             confirmDelete("news", item.title, () => {
-              commitContent({ ...content, news: content.news.filter((entry) => entry.id !== item.id) }, "News deleted.");
+              void commitContent({ ...content, news: content.news.filter((entry) => entry.id !== item.id) }, "News deleted.");
             })
           }
           getTitle={(item) => item.title}
@@ -174,9 +230,13 @@ export function AdminContentManager() {
           <Field label="Experience">
             <input name="experience" required value={coachForm.experience} onChange={(event) => setCoachForm({ ...coachForm, experience: event.target.value })} className={inputClass} placeholder="10+ years" />
           </Field>
-          <Field label="Image URL / public path">
-            <input name="image" required value={coachForm.image} onChange={(event) => setCoachForm({ ...coachForm, image: event.target.value })} className={inputClass} placeholder="/coaches/name.jpeg" />
-          </Field>
+          <ImageUploadField
+            label="Image"
+            folder="coaches"
+            value={coachForm.image}
+            onChange={(image) => setCoachForm({ ...coachForm, image })}
+            placeholder="/coaches/name.jpeg"
+          />
           <Field label="Summary">
             <textarea name="summary" required value={coachForm.summary} onChange={(event) => setCoachForm({ ...coachForm, summary: event.target.value })} className={`${inputClass} min-h-24 resize-y`} />
           </Field>
@@ -197,7 +257,7 @@ export function AdminContentManager() {
           onEdit={setCoachForm}
           onDelete={(item) =>
             confirmDelete("coach", item.name, () => {
-              commitContent({ ...content, coaches: content.coaches.filter((entry) => entry.id !== item.id) }, "Coach deleted.");
+              void commitContent({ ...content, coaches: content.coaches.filter((entry) => entry.id !== item.id) }, "Coach deleted.");
             })
           }
           getTitle={(item) => item.name}
@@ -215,9 +275,13 @@ export function AdminContentManager() {
           <Field label="Date / Label">
             <input name="date" required value={achievementForm.date} onChange={(event) => setAchievementForm({ ...achievementForm, date: event.target.value })} className={inputClass} placeholder="2026" />
           </Field>
-          <Field label="Image URL / public path">
-            <input name="image" required value={achievementForm.image} onChange={(event) => setAchievementForm({ ...achievementForm, image: event.target.value })} className={inputClass} placeholder="/media/gallery/photo.jpg" />
-          </Field>
+          <ImageUploadField
+            label="Image"
+            folder="achievements"
+            value={achievementForm.image}
+            onChange={(image) => setAchievementForm({ ...achievementForm, image })}
+            placeholder="/media/gallery/photo.jpg"
+          />
           <Field label="Description">
             <textarea name="description" required value={achievementForm.description} onChange={(event) => setAchievementForm({ ...achievementForm, description: event.target.value })} className={`${inputClass} min-h-28 resize-y`} />
           </Field>
@@ -229,7 +293,7 @@ export function AdminContentManager() {
           onEdit={setAchievementForm}
           onDelete={(item) =>
             confirmDelete("achievement", item.title, () => {
-              commitContent({ ...content, achievements: content.achievements.filter((entry) => entry.id !== item.id) }, "Achievement deleted.");
+              void commitContent({ ...content, achievements: content.achievements.filter((entry) => entry.id !== item.id) }, "Achievement deleted.");
             })
           }
           getTitle={(item) => item.title}
@@ -250,9 +314,13 @@ export function AdminContentManager() {
           <Field label="Type">
             <input name="type" required value={galleryForm.type} onChange={(event) => setGalleryForm({ ...galleryForm, type: event.target.value })} className={inputClass} placeholder="Photo" />
           </Field>
-          <Field label="Image URL / public path">
-            <input name="image" required value={galleryForm.image} onChange={(event) => setGalleryForm({ ...galleryForm, image: event.target.value })} className={inputClass} placeholder="/media/gallery/photo.jpg" />
-          </Field>
+          <ImageUploadField
+            label="Image"
+            folder="gallery"
+            value={galleryForm.image}
+            onChange={(image) => setGalleryForm({ ...galleryForm, image })}
+            placeholder="/media/gallery/photo.jpg"
+          />
           <FormActions editing={Boolean(galleryForm.id)} onCancel={() => setGalleryForm(blankGallery)} />
         </form>
         <ItemList
@@ -261,7 +329,7 @@ export function AdminContentManager() {
           onEdit={setGalleryForm}
           onDelete={(item) =>
             confirmDelete("gallery image", item.title, () => {
-              commitContent({ ...content, gallery: content.gallery.filter((entry) => entry.id !== item.id) }, "Gallery image deleted.");
+              void commitContent({ ...content, gallery: content.gallery.filter((entry) => entry.id !== item.id) }, "Gallery image deleted.");
             })
           }
           getTitle={(item) => item.title}
@@ -273,15 +341,14 @@ export function AdminContentManager() {
       <div className="flex justify-end">
         <button
           type="button"
-          onClick={() => {
-            if (window.confirm("Restore the default KRSA website content? This will replace edited news, coaches, achievements and gallery records on this device.")) {
-              resetContent();
+          onClick={async () => {
+            if (window.confirm("Restore the default KRSA website content? This will replace edited news, coaches, achievements and gallery records on the live website.")) {
+              const result = await resetContent();
               setNewsForm(blankNews);
               setAchievementForm(blankAchievement);
               setGalleryForm(blankGallery);
               setCoachForm(blankCoach);
-              setStatus("Default content restored.");
-              window.setTimeout(() => setStatus(""), 2800);
+              showStatus(result.ok ? "Default content restored." : result.message || "Defaults restored locally, but live publishing failed.");
             }
           }}
           className="btn-secondary"
@@ -316,10 +383,100 @@ function FormTitle({ icon: Icon, title }: { icon: LucideIcon; title: string }) {
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <label className="mb-4 grid gap-2">
+    <div className="mb-4 grid gap-2">
       <span className={labelClass}>{label}</span>
       {children}
-    </label>
+    </div>
+  );
+}
+
+function ImageUploadField({
+  label,
+  folder,
+  value,
+  onChange,
+  placeholder
+}: {
+  label: string;
+  folder: "news" | "coaches" | "achievements" | "gallery";
+  value: string;
+  onChange: (image: string) => void;
+  placeholder: string;
+}) {
+  const [isUploading, setIsUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState("");
+
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    setError("");
+    setProgress(0);
+
+    if (!file) return;
+
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      setError("Upload JPG, PNG or WebP images only.");
+      return;
+    }
+
+    if (file.size > MAX_IMAGE_SIZE) {
+      setError("Image must be smaller than 8 MB.");
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      const blob = await upload(`cms-media/${folder}/${safeUploadName(file.name)}`, file, {
+        access: "public",
+        handleUploadUrl: "/api/admin/upload",
+        multipart: file.size > 4 * 1024 * 1024,
+        clientPayload: JSON.stringify({ folder }),
+        onUploadProgress: ({ percentage }) => setProgress(Math.round(percentage))
+      });
+
+      onChange(blob.url);
+      setProgress(100);
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : "Image upload failed.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  return (
+    <Field label={label}>
+      <div className="grid gap-3">
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <input
+            name="image"
+            required
+            value={value}
+            onChange={(event) => onChange(event.target.value)}
+            className={inputClass}
+            placeholder={placeholder}
+          />
+          <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-slate-300 px-4 py-3 text-sm font-bold transition hover:border-orange hover:text-orange dark:border-white/10">
+            <UploadCloud size={16} />
+            {isUploading ? `${progress || 1}%` : "Upload"}
+            <input type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" onChange={handleFileChange} />
+          </label>
+        </div>
+
+        {value ? (
+          <div className="relative aspect-[16/9] overflow-hidden rounded-md border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-white/5">
+            <img src={value} alt="" className="h-full w-full object-cover" />
+          </div>
+        ) : null}
+
+        {error ? (
+          <p className="flex items-center gap-2 text-sm font-bold text-red-600">
+            <AlertCircle size={16} /> {error}
+          </p>
+        ) : null}
+      </div>
+    </Field>
   );
 }
 
