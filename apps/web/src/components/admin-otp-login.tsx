@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, KeyRound, Loader2, LockKeyhole, ShieldCheck } from "lucide-react";
 
@@ -8,6 +8,7 @@ const inputClass = "w-full rounded-md border border-slate-300 bg-white px-3 py-3
 
 export function AdminOtpLogin() {
   const router = useRouter();
+  const [fieldSalt] = useState(() => Math.random().toString(36).slice(2));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +18,18 @@ export function AdminOtpLogin() {
   const [message, setMessage] = useState("");
   const [otpPreview, setOtpPreview] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+
+    const clearBrowserAutofill = window.setTimeout(() => {
+      setEmail("");
+      setPassword("");
+    }, 250);
+
+    return () => window.clearTimeout(clearBrowserAutofill);
+  }, []);
 
   const loginWithPassword = async (event: FormEvent) => {
     event.preventDefault();
@@ -93,23 +106,38 @@ export function AdminOtpLogin() {
           </span>
           <div>
             <p className="font-display text-2xl font-bold uppercase text-ink dark:text-white">Admin Login</p>
-            <p className="text-sm text-muted dark:text-white/60">Use the approved KRSA admin email and password. OTP is optional.</p>
+            <p className="text-sm text-muted dark:text-white/60">Private access for authorized KRSA administrators. OTP is optional.</p>
           </div>
         </div>
 
-        <form onSubmit={mode === "password" ? loginWithPassword : step === "email" ? requestOtp : verifyOtp} className="grid gap-4">
+        <form
+          onSubmit={mode === "password" ? loginWithPassword : step === "email" ? requestOtp : verifyOtp}
+          className="grid gap-4"
+          autoComplete="off"
+          data-form-type="other"
+        >
+          <input className="hidden" type="text" name="username" autoComplete="username" tabIndex={-1} aria-hidden="true" />
+          <input className="hidden" type="password" name="password" autoComplete="current-password" tabIndex={-1} aria-hidden="true" />
+
           <label className="grid gap-2">
             <span className="text-xs font-bold uppercase tracking-[0.14em] text-muted dark:text-white/55">Admin email</span>
             <input
-              type="email"
+              type="text"
               required
               value={email}
               onChange={(event) => setEmail(event.target.value.toLowerCase())}
               disabled={mode === "otp" && step === "otp"}
               className={inputClass}
-              placeholder="Info@krsadelhi.in"
+              placeholder="Enter admin email"
+              name={`krsa-access-id-${fieldSalt}`}
+              inputMode="email"
               autoCapitalize="none"
-              autoComplete="email"
+              autoCorrect="off"
+              spellCheck={false}
+              autoComplete="new-password"
+              data-lpignore="true"
+              data-1p-ignore="true"
+              data-form-type="other"
             />
           </label>
 
@@ -123,7 +151,13 @@ export function AdminOtpLogin() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   className={`${inputClass} pr-12`}
-                  autoComplete="current-password"
+                  name={`krsa-access-secret-${fieldSalt}`}
+                  autoComplete="new-password"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  data-lpignore="true"
+                  data-1p-ignore="true"
+                  data-form-type="other"
                   placeholder="Enter admin password"
                 />
                 <button
@@ -148,6 +182,7 @@ export function AdminOtpLogin() {
                 className={`${inputClass} text-center text-2xl font-bold tracking-[0.4em]`}
                 placeholder="000000"
                 inputMode="numeric"
+                autoComplete="one-time-code"
               />
             </label>
           ) : null}

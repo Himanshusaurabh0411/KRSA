@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import type { ReactNode } from "react";
-import { ImageIcon, Newspaper, Plus, RotateCcw, Save, Star, Trash2, UserRound } from "lucide-react";
+import { CheckCircle2, ImageIcon, Newspaper, Pencil, Plus, RotateCcw, Save, Star, Trash2, UserRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
   CmsAchievementItem,
@@ -24,11 +24,24 @@ const linesToArray = (value: FormDataEntryValue | null) => String(value || "").s
 const arrayToText = (items: string[]) => items.join("\n");
 
 export function AdminContentManager() {
-  const { content, saveContent, resetContent } = useCmsContent();
+  const { content, ready, saveContent, resetContent } = useCmsContent();
   const [newsForm, setNewsForm] = useState<CmsNewsItem>(blankNews);
   const [achievementForm, setAchievementForm] = useState<CmsAchievementItem>(blankAchievement);
   const [galleryForm, setGalleryForm] = useState<CmsGalleryItem>(blankGallery);
   const [coachForm, setCoachForm] = useState<CmsCoachItem>(blankCoach);
+  const [status, setStatus] = useState("");
+
+  const commitContent = (nextContent: typeof content, message: string) => {
+    saveContent(nextContent);
+    setStatus(message);
+    window.setTimeout(() => setStatus(""), 2800);
+  };
+
+  const confirmDelete = (label: string, title: string, onConfirm: () => void) => {
+    if (window.confirm(`Delete ${label}: ${title}?`)) {
+      onConfirm();
+    }
+  };
 
   const saveNews = (event: FormEvent) => {
     event.preventDefault();
@@ -41,7 +54,7 @@ export function AdminContentManager() {
       excerpt: String(form.get("excerpt") || "")
     };
     const news = newsForm.id ? content.news.map((entry) => (entry.id === item.id ? item : entry)) : [item, ...content.news];
-    saveContent({ ...content, news });
+    commitContent({ ...content, news }, newsForm.id ? "News updated." : "News added.");
     setNewsForm(blankNews);
   };
 
@@ -58,7 +71,7 @@ export function AdminContentManager() {
     const achievements = achievementForm.id
       ? content.achievements.map((entry) => (entry.id === item.id ? item : entry))
       : [item, ...content.achievements];
-    saveContent({ ...content, achievements });
+    commitContent({ ...content, achievements }, achievementForm.id ? "Achievement updated." : "Achievement added.");
     setAchievementForm(blankAchievement);
   };
 
@@ -77,7 +90,7 @@ export function AdminContentManager() {
       certifications: linesToArray(form.get("certifications"))
     };
     const coaches = coachForm.id ? content.coaches.map((entry) => (entry.id === item.id ? item : entry)) : [item, ...content.coaches];
-    saveContent({ ...content, coaches });
+    commitContent({ ...content, coaches }, coachForm.id ? "Coach updated." : "Coach added.");
     setCoachForm(blankCoach);
   };
 
@@ -94,12 +107,22 @@ export function AdminContentManager() {
     const gallery = galleryForm.id
       ? content.gallery.map((entry) => (entry.id === item.id ? item : entry))
       : [item, ...content.gallery];
-    saveContent({ ...content, gallery });
+    commitContent({ ...content, gallery }, galleryForm.id ? "Gallery image updated." : "Gallery image added.");
     setGalleryForm(blankGallery);
   };
 
   return (
     <div className="grid gap-8">
+      {!ready ? (
+        <div className="panel p-5 text-sm font-bold text-muted dark:text-white/60">Loading admin content...</div>
+      ) : null}
+
+      {status ? (
+        <div className="flex items-center gap-2 rounded-md border border-green/30 bg-green/10 px-4 py-3 text-sm font-bold text-green">
+          <CheckCircle2 size={18} /> {status}
+        </div>
+      ) : null}
+
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <SummaryCard icon={Newspaper} label="News" value={content.news.length} />
         <SummaryCard icon={Star} label="Achievements" value={content.achievements.length} />
@@ -128,7 +151,11 @@ export function AdminContentManager() {
           items={content.news}
           empty="No news added"
           onEdit={setNewsForm}
-          onDelete={(id) => saveContent({ ...content, news: content.news.filter((item) => item.id !== id) })}
+          onDelete={(item) =>
+            confirmDelete("news", item.title, () => {
+              commitContent({ ...content, news: content.news.filter((entry) => entry.id !== item.id) }, "News deleted.");
+            })
+          }
           getTitle={(item) => item.title}
           getMeta={(item) => item.date}
           getImage={(item) => item.image}
@@ -168,7 +195,11 @@ export function AdminContentManager() {
           items={content.coaches}
           empty="No coaches added"
           onEdit={setCoachForm}
-          onDelete={(id) => saveContent({ ...content, coaches: content.coaches.filter((item) => item.id !== id) })}
+          onDelete={(item) =>
+            confirmDelete("coach", item.name, () => {
+              commitContent({ ...content, coaches: content.coaches.filter((entry) => entry.id !== item.id) }, "Coach deleted.");
+            })
+          }
           getTitle={(item) => item.name}
           getMeta={(item) => item.role}
           getImage={(item) => item.image}
@@ -196,7 +227,11 @@ export function AdminContentManager() {
           items={content.achievements}
           empty="No achievements added"
           onEdit={setAchievementForm}
-          onDelete={(id) => saveContent({ ...content, achievements: content.achievements.filter((item) => item.id !== id) })}
+          onDelete={(item) =>
+            confirmDelete("achievement", item.title, () => {
+              commitContent({ ...content, achievements: content.achievements.filter((entry) => entry.id !== item.id) }, "Achievement deleted.");
+            })
+          }
           getTitle={(item) => item.title}
           getMeta={(item) => item.date}
           getImage={(item) => item.image}
@@ -224,7 +259,11 @@ export function AdminContentManager() {
           items={content.gallery}
           empty="No gallery images added"
           onEdit={setGalleryForm}
-          onDelete={(id) => saveContent({ ...content, gallery: content.gallery.filter((item) => item.id !== id) })}
+          onDelete={(item) =>
+            confirmDelete("gallery image", item.title, () => {
+              commitContent({ ...content, gallery: content.gallery.filter((entry) => entry.id !== item.id) }, "Gallery image deleted.");
+            })
+          }
           getTitle={(item) => item.title}
           getMeta={(item) => item.category}
           getImage={(item) => item.image}
@@ -232,8 +271,22 @@ export function AdminContentManager() {
       </section>
 
       <div className="flex justify-end">
-        <button type="button" onClick={resetContent} className="btn-secondary">
-          <RotateCcw size={16} /> Reset content
+        <button
+          type="button"
+          onClick={() => {
+            if (window.confirm("Restore the default KRSA website content? This will replace edited news, coaches, achievements and gallery records on this device.")) {
+              resetContent();
+              setNewsForm(blankNews);
+              setAchievementForm(blankAchievement);
+              setGalleryForm(blankGallery);
+              setCoachForm(blankCoach);
+              setStatus("Default content restored.");
+              window.setTimeout(() => setStatus(""), 2800);
+            }
+          }}
+          className="btn-secondary"
+        >
+          <RotateCcw size={16} /> Restore defaults
         </button>
       </div>
     </div>
@@ -297,7 +350,7 @@ function ItemList<T extends { id: string }>({
   items: T[];
   empty: string;
   onEdit: (item: T) => void;
-  onDelete: (id: string) => void;
+  onDelete: (item: T) => void;
   getTitle: (item: T) => string;
   getMeta: (item: T) => string;
   getImage: (item: T) => string;
@@ -317,10 +370,10 @@ function ItemList<T extends { id: string }>({
               </div>
               <div className="flex gap-2">
                 <button type="button" onClick={() => onEdit(item)} className="rounded-md border border-slate-300 px-3 py-2 text-sm font-bold dark:border-white/10">
-                  Edit
+                  <span className="inline-flex items-center gap-2"><Pencil size={15} /> Edit</span>
                 </button>
-                <button type="button" onClick={() => onDelete(item.id)} className="rounded-md bg-red-600 px-3 py-2 text-sm font-bold text-white">
-                  <Trash2 size={16} />
+                <button type="button" onClick={() => onDelete(item)} className="rounded-md bg-red-600 px-3 py-2 text-sm font-bold text-white">
+                  <span className="inline-flex items-center gap-2"><Trash2 size={15} /> Delete</span>
                 </button>
               </div>
             </div>

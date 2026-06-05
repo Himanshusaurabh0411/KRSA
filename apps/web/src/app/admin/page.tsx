@@ -14,7 +14,7 @@ export default async function AdminPage() {
   if (!session) {
     return (
       <main>
-        <PageHero eyebrow="Admin Portal" title="Secure KRSA admin access" copy="Use the approved admin email and password before opening website content controls." />
+        <PageHero eyebrow="Admin Portal" title="Secure KRSA admin access" copy="Sign in before opening private website content controls." />
         <section className="section-pad">
           <div className="container-wide">
             <AdminOtpLogin />
@@ -30,9 +30,7 @@ export default async function AdminPage() {
       <section className="section-pad">
         <div className="container-wide">
           <div className="mb-6 flex flex-col justify-between gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm md:flex-row md:items-center dark:border-white/10 dark:bg-white/5">
-            <p className="text-sm font-bold text-muted dark:text-white/60">
-              Signed in as <span className="text-ink dark:text-white">{session.email}</span>
-            </p>
+            <p className="text-sm font-bold text-muted dark:text-white/60">Signed in to the private KRSA admin workspace.</p>
             <AdminLogoutButton />
           </div>
           <AdminContentManager />
