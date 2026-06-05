@@ -3,12 +3,13 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { KeyRound, Loader2, LockKeyhole, ShieldCheck } from "lucide-react";
+import { academy } from "@/lib/data";
 
 const inputClass = "w-full rounded-md border border-slate-300 bg-white px-3 py-3 text-sm outline-none focus:border-orange dark:border-white/10 dark:bg-[#181833]";
 
 export function AdminOtpLogin() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(academy.email);
   const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
   const [mode, setMode] = useState<"password" | "otp">("password");
@@ -92,7 +93,7 @@ export function AdminOtpLogin() {
           </span>
           <div>
             <p className="font-display text-2xl font-bold uppercase text-ink dark:text-white">Admin Login</p>
-            <p className="text-sm text-muted dark:text-white/60">Use the approved KRSA admin email and password.</p>
+            <p className="text-sm text-muted dark:text-white/60">Use the approved KRSA admin email and password. OTP is optional.</p>
           </div>
         </div>
 
@@ -103,10 +104,12 @@ export function AdminOtpLogin() {
               type="email"
               required
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => setEmail(event.target.value.toLowerCase())}
               disabled={mode === "otp" && step === "otp"}
               className={inputClass}
               placeholder="Info@krsadelhi.in"
+              autoCapitalize="none"
+              autoComplete="email"
             />
           </label>
 
@@ -120,6 +123,7 @@ export function AdminOtpLogin() {
                 onChange={(event) => setPassword(event.target.value)}
                 className={inputClass}
                 autoComplete="current-password"
+                placeholder="Enter admin password"
               />
             </label>
           ) : null}

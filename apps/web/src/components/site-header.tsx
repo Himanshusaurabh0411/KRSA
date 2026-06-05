@@ -25,17 +25,21 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-navy text-white shadow-xl shadow-navy/10">
-      <div className="container-wide flex min-h-20 items-center justify-between gap-3 px-5 sm:px-8 lg:px-12 xl:px-16">
+      <div className="container-wide flex min-h-20 items-center justify-between gap-3 px-4 py-3 sm:px-8 lg:px-12 xl:px-16">
         <Link href="/khelo-india" className="hidden h-14 w-28 items-center rounded-md bg-white px-3 py-2 shadow-sm sm:flex" aria-label="Khelo India accreditation">
           <KheloIndiaLogo priority />
         </Link>
-        <Link href="/" className="flex min-w-0 flex-1 items-center justify-center gap-3 text-center" aria-label="KRSA home">
-          <span className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border-2 border-orange/85 bg-[#fff4b8] p-1 shadow-[0_0_0_4px_rgba(244,125,59,0.16),0_14px_34px_rgba(244,125,59,0.24)] ring-1 ring-white/35 transition duration-200 hover:scale-[1.03]">
+        <Link href="/" className="flex min-w-0 flex-1 items-center justify-center gap-2 text-center sm:gap-3" aria-label="KRSA home">
+          <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border-2 border-orange/85 bg-[#fff4b8] p-1 shadow-[0_0_0_4px_rgba(244,125,59,0.16),0_14px_34px_rgba(244,125,59,0.24)] ring-1 ring-white/35 transition duration-200 hover:scale-[1.03] sm:h-16 sm:w-16">
             <KRSALogo priority />
           </span>
-          <span className="min-w-0">
-            <span className="block truncate font-display text-3xl font-bold uppercase leading-none tracking-wide sm:text-4xl lg:text-5xl">{academy.name}</span>
-            <span className="block text-[10px] uppercase tracking-[0.18em] text-orange sm:text-xs">{academy.designationHi} | {academy.designationEn}</span>
+          <span className="min-w-0 max-w-[calc(100vw-5.5rem)] sm:max-w-none">
+            <span className="block text-balance break-words font-display text-[1.45rem] font-bold uppercase leading-[0.95] tracking-wide sm:text-4xl lg:text-5xl">
+              {academy.name}
+            </span>
+            <span className="mt-1 block text-balance text-[9px] uppercase leading-tight tracking-[0.12em] text-orange sm:text-xs sm:tracking-[0.18em]">
+              {academy.designationHi} | {academy.designationEn}
+            </span>
           </span>
         </Link>
         <Link href="/khelo-india" className="hidden min-h-14 min-w-28 items-center justify-center rounded-md border border-white/15 px-3 text-center font-display text-[10px] font-bold uppercase leading-tight text-white/85 sm:flex" aria-label="Sports Authority of India">

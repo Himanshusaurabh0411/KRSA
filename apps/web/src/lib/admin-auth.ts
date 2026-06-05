@@ -6,6 +6,7 @@ export const ADMIN_OTP_COOKIE = "krsa_admin_otp_challenge";
 const OTP_TTL_MINUTES = 10;
 const DEFAULT_SESSION_HOURS = 8;
 const PASSWORD_HASH_BYTES = 64;
+const DEFAULT_ADMIN_EMAILS = ["info@krsadelhi.in"];
 
 export type AdminSession = {
   email: string;
@@ -54,34 +55,49 @@ const unseal = <T>(token?: string): T | null => {
 
 export const normalizeAdminEmail = (email: string) => email.trim().toLowerCase();
 
-export const getAllowedAdminEmails = () =>
-  (process.env.ADMIN_EMAILS || "")
+export const getAllowedAdminEmails = () => {
+  const configuredEmails = (process.env.ADMIN_EMAILS || "")
     .split(",")
     .map((email) => normalizeAdminEmail(email))
     .filter(Boolean);
+
+  return configuredEmails.length > 0 ? configuredEmails : DEFAULT_ADMIN_EMAILS;
+};
 
 export const isAllowedAdminEmail = (email: string) => {
   const allowedEmails = getAllowedAdminEmails();
   return allowedEmails.length > 0 && allowedEmails.includes(normalizeAdminEmail(email));
 };
 
-export const isAdminPasswordConfigured = () => Boolean(process.env.ADMIN_PASSWORD_HASH);
+export const isAdminPasswordConfigured = () => Boolean(process.env.ADMIN_PASSWORD_HASH || process.env.ADMIN_PASSWORD);
+
+const verifyPlainSecret = (password: string, expectedPassword: string) => {
+  if (!password || !expectedPassword) return false;
+
+  const actual = createHmac("sha256", getSecret()).update(password).digest();
+  const expected = createHmac("sha256", getSecret()).update(expectedPassword).digest();
+  return timingSafeEqual(actual, expected);
+};
 
 export const verifyAdminPassword = (password: string) => {
   const passwordHash = process.env.ADMIN_PASSWORD_HASH || "";
   const [salt, expectedHash] = passwordHash.split(":");
 
-  if (!salt || !expectedHash || !password) return false;
+  if (salt && expectedHash && password) {
+    try {
+      const actualHash = scryptSync(password, salt, PASSWORD_HASH_BYTES).toString("base64url");
+      const actualBuffer = Buffer.from(actualHash);
+      const expectedBuffer = Buffer.from(expectedHash);
 
-  try {
-    const actualHash = scryptSync(password, salt, PASSWORD_HASH_BYTES).toString("base64url");
-    const actualBuffer = Buffer.from(actualHash);
-    const expectedBuffer = Buffer.from(expectedHash);
-
-    return actualBuffer.length === expectedBuffer.length && timingSafeEqual(actualBuffer, expectedBuffer);
-  } catch {
-    return false;
+      if (actualBuffer.length === expectedBuffer.length && timingSafeEqual(actualBuffer, expectedBuffer)) {
+        return true;
+      }
+    } catch {
+      return false;
+    }
   }
+
+  return verifyPlainSecret(password, process.env.ADMIN_PASSWORD || "");
 };
 
 export const createOtp = () => randomInt(100000, 1000000).toString();

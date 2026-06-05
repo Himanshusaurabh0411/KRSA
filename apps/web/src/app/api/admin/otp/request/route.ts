@@ -31,13 +31,28 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "This email is not allowed for KRSA admin access." }, { status: 403 });
   }
 
-  const otp = createOtp();
-  const emailResult = await sendAdminOtpEmail(normalizedEmail, otp);
   const testMode = process.env.ADMIN_OTP_TEST_MODE === "true" || process.env.NODE_ENV !== "production";
+  const otp = createOtp();
+  let emailResult: Awaited<ReturnType<typeof sendAdminOtpEmail>>;
+
+  try {
+    emailResult = await sendAdminOtpEmail(normalizedEmail, otp);
+  } catch (error) {
+    console.error("KRSA admin OTP email failed", error);
+
+    if (!testMode) {
+      return NextResponse.json(
+        { message: "OTP email could not be sent right now. Use password login or check the email provider settings." },
+        { status: 502 }
+      );
+    }
+
+    emailResult = { configured: false };
+  }
 
   if (!emailResult.configured && !testMode) {
     return NextResponse.json(
-      { message: "OTP email delivery is not configured yet. Add RESEND_API_KEY and ADMIN_OTP_FROM in Vercel." },
+      { message: "OTP email delivery is not configured yet. Use password login or add RESEND_API_KEY and ADMIN_OTP_FROM in Vercel." },
       { status: 503 }
     );
   }

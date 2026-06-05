@@ -7,3 +7,5 @@ dist
 coverage
 uploads
 *.log
+.vercel
+*.tsbuildinfo
