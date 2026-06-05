@@ -2,15 +2,15 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { KeyRound, Loader2, LockKeyhole, ShieldCheck } from "lucide-react";
-import { academy } from "@/lib/data";
+import { Eye, EyeOff, KeyRound, Loader2, LockKeyhole, ShieldCheck } from "lucide-react";
 
 const inputClass = "w-full rounded-md border border-slate-300 bg-white px-3 py-3 text-sm outline-none focus:border-orange dark:border-white/10 dark:bg-[#181833]";
 
 export function AdminOtpLogin() {
   const router = useRouter();
-  const [email, setEmail] = useState(academy.email);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [otp, setOtp] = useState("");
   const [mode, setMode] = useState<"password" | "otp">("password");
   const [step, setStep] = useState<"email" | "otp">("email");
@@ -116,15 +116,25 @@ export function AdminOtpLogin() {
           {mode === "password" ? (
             <label className="grid gap-2">
               <span className="text-xs font-bold uppercase tracking-[0.14em] text-muted dark:text-white/55">Password</span>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                className={inputClass}
-                autoComplete="current-password"
-                placeholder="Enter admin password"
-              />
+              <span className="relative block">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  className={`${inputClass} pr-12`}
+                  autoComplete="current-password"
+                  placeholder="Enter admin password"
+                />
+                <button
+                  type="button"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() => setShowPassword((value) => !value)}
+                  className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-md text-muted transition hover:bg-slate-100 hover:text-ink dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </span>
             </label>
           ) : null}
 

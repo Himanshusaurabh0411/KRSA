@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 
   if (!emailResult.configured && !testMode) {
     return NextResponse.json(
-      { message: "OTP email delivery is not configured yet. Use password login or add RESEND_API_KEY and ADMIN_OTP_FROM in Vercel." },
+      { message: "OTP email delivery is not configured yet. Use password login or add ADMIN_SMTP_PASS for GoDaddy SMTP, or RESEND_API_KEY for Resend." },
       { status: 503 }
     );
   }
