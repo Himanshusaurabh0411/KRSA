@@ -466,7 +466,7 @@ function ImageUploadField({
 
         {value ? (
           <div className="relative aspect-[16/9] overflow-hidden rounded-md border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-white/5">
-            <img src={value} alt="" className="h-full w-full object-cover" />
+            <img src={value} alt="" className="h-full w-full object-contain p-2" />
           </div>
         ) : null}
 

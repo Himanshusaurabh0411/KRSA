@@ -13,8 +13,8 @@ export default function NewsPage() {
         <div className="container-wide grid gap-5 md:grid-cols-3">
           {content.news.map((item) => (
             <article key={item.id} className="panel overflow-hidden">
-              <div className="h-56 bg-slate-100 dark:bg-white/10">
-                <img src={item.image} alt="" className="h-full w-full object-cover" />
+              <div className="aspect-[16/9] bg-slate-100 p-2 dark:bg-white/10">
+                <img src={item.image} alt="" className="h-full w-full object-contain" />
               </div>
               <div className="p-6">
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-green">{item.date}</p>

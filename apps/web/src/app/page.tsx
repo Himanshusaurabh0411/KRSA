@@ -145,11 +145,11 @@ export default function HomePage() {
           <div className="grid gap-5 md:grid-cols-2">
             {content.achievements.map((item) => (
               <article key={item.id} className="panel overflow-hidden p-0">
-                <div className={`${item.image.includes("krsa-academy-banner") ? "aspect-[1175/224]" : "h-56"} overflow-hidden bg-white dark:bg-white/10`}>
+                <div className="aspect-[16/9] overflow-hidden bg-slate-100 p-2 dark:bg-white/10">
                   <img
                     src={item.image}
                     alt=""
-                    className={`h-full w-full transition duration-500 hover:scale-105 ${item.image.includes("krsa-academy-banner") ? "object-contain" : "object-cover"}`}
+                    className="h-full w-full object-contain transition duration-500 hover:scale-[1.02]"
                   />
                 </div>
                 <div className="p-5">
@@ -169,8 +169,8 @@ export default function HomePage() {
           <div className="grid gap-4 md:grid-cols-3">
             {content.news.map((item) => (
               <Link href="/news" key={item.id} className="panel overflow-hidden p-0">
-                <div className="h-40 overflow-hidden">
-                  <img src={item.image} alt="" className="h-full w-full object-cover transition duration-500 hover:scale-105" />
+                <div className="aspect-[16/9] overflow-hidden bg-slate-100 p-2 dark:bg-white/10">
+                  <img src={item.image} alt="" className="h-full w-full object-contain transition duration-500 hover:scale-[1.02]" />
                 </div>
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-[0.14em] text-green">{item.date}</p>
