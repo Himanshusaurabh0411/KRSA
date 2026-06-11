@@ -13,6 +13,7 @@ export type {
   CmsAchievementItem,
   CmsCoachItem,
   CmsContent,
+  CmsEventItem,
   CmsGalleryItem,
   CmsNewsItem,
   CmsSaveResult

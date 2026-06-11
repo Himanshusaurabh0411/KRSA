@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ImageLightbox } from "@/components/image-lightbox";
 import { PageHero } from "@/components/page-hero";
 import { useCmsContent } from "@/lib/cms-content";
 
@@ -38,9 +39,13 @@ export default function GalleryPage() {
           {filteredItems.length > 0 ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filteredItems.map((item) => (
-              <article key={item.id} className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-navy shadow-premium">
-                <img src={item.image} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-              </article>
+                <ImageLightbox
+                  key={item.id}
+                  src={item.image}
+                  alt={item.title}
+                  frameClassName="aspect-[4/3] rounded-lg bg-navy shadow-premium"
+                  imageClassName="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
               ))}
             </div>
           ) : (

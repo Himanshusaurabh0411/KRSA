@@ -3,6 +3,7 @@ import type {
   CmsAchievementItem,
   CmsCoachItem,
   CmsContent,
+  CmsEventItem,
   CmsGalleryItem,
   CmsNewsItem
 } from "@/lib/cms-types";
@@ -150,7 +151,8 @@ export const getDefaultCmsContent = (): CmsContent => ({
       ],
       certifications: ["NIS Basketball Certification", "WABC Level 1 cleared"]
     }
-  ]
+  ],
+  events: []
 });
 
 const normalizeNewsItem = (item: unknown, index: number): CmsNewsItem | null => {
@@ -226,6 +228,26 @@ const normalizeCoachItem = (item: unknown, index: number): CmsCoachItem | null =
   };
 };
 
+const normalizeEventItem = (item: unknown, index: number): CmsEventItem | null => {
+  const record = item as Partial<CmsEventItem>;
+  const title = cleanText(record.title);
+  const startDate = cleanText(record.startDate);
+  const image = cleanText(record.image);
+  if (!title || !startDate || !image) return null;
+
+  return {
+    id: cleanText(record.id) || `event-${index + 1}-${slugify(title)}`,
+    title,
+    startDate,
+    endDate: cleanText(record.endDate),
+    time: cleanText(record.time),
+    venue: cleanText(record.venue),
+    description: cleanText(record.description),
+    image,
+    active: record.active === true
+  };
+};
+
 const normalizeList = <T>(
   value: unknown,
   fallback: T[],
@@ -242,6 +264,7 @@ export const normalizeCmsContent = (input: unknown, fallback = getDefaultCmsCont
     news: normalizeList(content.news, fallback.news, normalizeNewsItem),
     gallery: normalizeList(content.gallery, fallback.gallery, normalizeGalleryItem),
     achievements: normalizeList(content.achievements, fallback.achievements, normalizeAchievementItem),
-    coaches: normalizeList(content.coaches, fallback.coaches, normalizeCoachItem)
+    coaches: normalizeList(content.coaches, fallback.coaches, normalizeCoachItem),
+    events: normalizeList(content.events, fallback.events, normalizeEventItem)
   };
 };

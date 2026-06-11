@@ -9,12 +9,16 @@ import { SectionHeading } from "@/components/section-heading";
 import { KheloIndiaLogo } from "@/components/official-brand";
 import { useCmsContent } from "@/lib/cms-content";
 import { CoachGrid } from "@/components/coach-grid";
+import { ImageLightbox } from "@/components/image-lightbox";
+import { UpcomingEventPopup } from "@/components/upcoming-event-popup";
 
 export default function HomePage() {
-  const { content } = useCmsContent();
+  const { content, ready } = useCmsContent();
 
   return (
     <main>
+      <UpcomingEventPopup events={content.events} ready={ready} />
+
       <section className="overflow-hidden border-b border-slate-200 bg-white py-4 dark:border-white/10 dark:bg-[#181833]">
         <motion.div
           className="flex w-max gap-5 px-5 sm:px-8 lg:px-12 xl:px-16"
@@ -145,13 +149,12 @@ export default function HomePage() {
           <div className="grid gap-5 md:grid-cols-2">
             {content.achievements.map((item) => (
               <article key={item.id} className="panel overflow-hidden p-0">
-                <div className="aspect-[16/9] overflow-hidden bg-slate-100 p-2 dark:bg-white/10">
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="h-full w-full object-contain transition duration-500 hover:scale-[1.02]"
-                  />
-                </div>
+                <ImageLightbox
+                  src={item.image}
+                  alt={item.title}
+                  frameClassName="aspect-[16/9] bg-slate-100 p-2 dark:bg-white/10"
+                  imageClassName="h-full w-full object-contain transition duration-500 group-hover:scale-[1.02]"
+                />
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-[0.16em] text-green">{item.date}</p>
                   <h2 className="mt-2 font-display text-3xl font-bold uppercase text-ink dark:text-white">{item.title}</h2>
@@ -168,16 +171,19 @@ export default function HomePage() {
           <SectionHeading eyebrow="News & Updates" title="Announcements, reports and academy notices" />
           <div className="grid gap-4 md:grid-cols-3">
             {content.news.map((item) => (
-              <Link href="/news" key={item.id} className="panel overflow-hidden p-0">
-                <div className="aspect-[16/9] overflow-hidden bg-slate-100 p-2 dark:bg-white/10">
-                  <img src={item.image} alt="" className="h-full w-full object-contain transition duration-500 hover:scale-[1.02]" />
-                </div>
-                <div className="p-5">
+              <article key={item.id} className="panel overflow-hidden p-0">
+                <ImageLightbox
+                  src={item.image}
+                  alt={item.title}
+                  frameClassName="aspect-[16/9] bg-slate-100 p-2 dark:bg-white/10"
+                  imageClassName="h-full w-full object-contain transition duration-500 group-hover:scale-[1.02]"
+                />
+                <Link href="/news" className="block p-5">
                   <p className="text-xs font-bold uppercase tracking-[0.14em] text-green">{item.date}</p>
                   <h2 className="mt-2 font-display text-2xl font-bold uppercase text-ink dark:text-white">{item.title}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted dark:text-white/60">{item.excerpt}</p>
-                </div>
-              </Link>
+                </Link>
+              </article>
             ))}
           </div>
         </div>
@@ -199,9 +205,13 @@ export default function HomePage() {
           <SectionHeading eyebrow="Gallery" title="Training, tournaments and ceremonies" />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {content.gallery.map((item) => (
-              <Link href="/gallery" key={item.id} aria-label="Open gallery album" className="group relative block aspect-[4/3] overflow-hidden rounded-lg bg-navy text-white">
-                <img src={item.image} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-              </Link>
+              <ImageLightbox
+                key={item.id}
+                src={item.image}
+                alt={item.title}
+                frameClassName="aspect-[4/3] rounded-lg bg-navy shadow-premium"
+                imageClassName="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              />
             ))}
           </div>
         </div>

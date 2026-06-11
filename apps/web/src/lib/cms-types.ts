@@ -34,11 +34,24 @@ export type CmsCoachItem = {
   certifications: string[];
 };
 
+export type CmsEventItem = {
+  id: string;
+  title: string;
+  startDate: string;
+  endDate: string;
+  time: string;
+  venue: string;
+  description: string;
+  image: string;
+  active: boolean;
+};
+
 export type CmsContent = {
   news: CmsNewsItem[];
   gallery: CmsGalleryItem[];
   achievements: CmsAchievementItem[];
   coaches: CmsCoachItem[];
+  events: CmsEventItem[];
 };
 
 export type CmsSaveResult = {

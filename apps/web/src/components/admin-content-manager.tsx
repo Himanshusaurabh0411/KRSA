@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { upload } from "@vercel/blob/client";
 import {
   AlertCircle,
+  CalendarDays,
   CheckCircle2,
   ImageIcon,
   Newspaper,
@@ -21,6 +22,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   CmsAchievementItem,
   CmsCoachItem,
+  CmsEventItem,
   CmsGalleryItem,
   CmsNewsItem,
   createCmsId,
@@ -31,6 +33,17 @@ const blankNews: CmsNewsItem = { id: "", title: "", date: "", excerpt: "", image
 const blankAchievement: CmsAchievementItem = { id: "", title: "", date: "", description: "", image: "" };
 const blankGallery: CmsGalleryItem = { id: "", title: "", type: "Photo", category: "Training", image: "" };
 const blankCoach: CmsCoachItem = { id: "", name: "", role: "", experience: "", summary: "", image: "", education: [], highlights: [], certifications: [] };
+const blankEvent: CmsEventItem = {
+  id: "",
+  title: "",
+  startDate: "",
+  endDate: "",
+  time: "",
+  venue: "",
+  description: "",
+  image: "",
+  active: true
+};
 
 const inputClass = "w-full rounded-md border border-slate-300 bg-white px-3 py-3 text-sm outline-none focus:border-orange dark:border-white/10 dark:bg-[#181833]";
 const labelClass = "text-xs font-bold uppercase tracking-[0.14em] text-muted dark:text-white/55";
@@ -57,6 +70,7 @@ export function AdminContentManager() {
   const [achievementForm, setAchievementForm] = useState<CmsAchievementItem>(blankAchievement);
   const [galleryForm, setGalleryForm] = useState<CmsGalleryItem>(blankGallery);
   const [coachForm, setCoachForm] = useState<CmsCoachItem>(blankCoach);
+  const [eventForm, setEventForm] = useState<CmsEventItem>(blankEvent);
   const [status, setStatus] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
@@ -157,6 +171,29 @@ export function AdminContentManager() {
     }
   };
 
+  const saveEvent = async (event: FormEvent) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget as HTMLFormElement);
+    const item: CmsEventItem = {
+      id: eventForm.id || createCmsId(),
+      title: String(form.get("title") || ""),
+      startDate: String(form.get("startDate") || ""),
+      endDate: String(form.get("endDate") || ""),
+      time: String(form.get("time") || ""),
+      venue: String(form.get("venue") || ""),
+      description: String(form.get("description") || ""),
+      image: String(form.get("image") || ""),
+      active: form.get("active") === "on"
+    };
+    const events = eventForm.id
+      ? content.events.map((entry) => (entry.id === item.id ? item : entry))
+      : [item, ...content.events];
+
+    if (await commitContent({ ...content, events }, eventForm.id ? "Event updated." : "Event added.")) {
+      setEventForm(blankEvent);
+    }
+  };
+
   return (
     <div className="grid gap-8">
       {!ready ? (
@@ -175,12 +212,108 @@ export function AdminContentManager() {
         </div>
       ) : null}
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <SummaryCard icon={CalendarDays} label="Events" value={content.events.length} />
         <SummaryCard icon={Newspaper} label="News" value={content.news.length} />
         <SummaryCard icon={Star} label="Achievements" value={content.achievements.length} />
         <SummaryCard icon={ImageIcon} label="Gallery" value={content.gallery.length} />
         <SummaryCard icon={UserRound} label="Coaches" value={content.coaches.length} />
       </div>
+
+      <section className="grid gap-5 xl:grid-cols-[420px_1fr]">
+        <form onSubmit={saveEvent} className="panel p-5">
+          <FormTitle icon={CalendarDays} title={eventForm.id ? "Edit event" : "Add upcoming event"} />
+          <Field label="Event title">
+            <input
+              name="title"
+              required
+              value={eventForm.title}
+              onChange={(event) => setEventForm({ ...eventForm, title: event.target.value })}
+              className={inputClass}
+              placeholder="Delhi Basketball Championship"
+            />
+          </Field>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label="Start date">
+              <input
+                name="startDate"
+                type="date"
+                required
+                value={eventForm.startDate}
+                onChange={(event) => setEventForm({ ...eventForm, startDate: event.target.value })}
+                className={inputClass}
+              />
+            </Field>
+            <Field label="End date">
+              <input
+                name="endDate"
+                type="date"
+                min={eventForm.startDate || undefined}
+                value={eventForm.endDate}
+                onChange={(event) => setEventForm({ ...eventForm, endDate: event.target.value })}
+                className={inputClass}
+              />
+            </Field>
+          </div>
+          <Field label="Time">
+            <input
+              name="time"
+              value={eventForm.time}
+              onChange={(event) => setEventForm({ ...eventForm, time: event.target.value })}
+              className={inputClass}
+              placeholder="6:00 PM onwards"
+            />
+          </Field>
+          <Field label="Venue">
+            <input
+              name="venue"
+              value={eventForm.venue}
+              onChange={(event) => setEventForm({ ...eventForm, venue: event.target.value })}
+              className={inputClass}
+              placeholder="KRSA, Sangam Vihar, Wazirabad"
+            />
+          </Field>
+          <ImageUploadField
+            label="Event poster"
+            folder="events"
+            value={eventForm.image}
+            onChange={(image) => setEventForm({ ...eventForm, image })}
+            placeholder="Upload an event poster"
+          />
+          <Field label="Description">
+            <textarea
+              name="description"
+              value={eventForm.description}
+              onChange={(event) => setEventForm({ ...eventForm, description: event.target.value })}
+              className={`${inputClass} min-h-24 resize-y`}
+            />
+          </Field>
+          <label className="mb-5 flex items-center gap-3 rounded-md border border-slate-200 px-3 py-3 dark:border-white/10">
+            <input
+              name="active"
+              type="checkbox"
+              checked={eventForm.active}
+              onChange={(event) => setEventForm({ ...eventForm, active: event.target.checked })}
+              className="h-5 w-5 accent-orange"
+            />
+            <span className="text-sm font-bold text-ink dark:text-white">Show this event as a homepage popup</span>
+          </label>
+          <FormActions editing={Boolean(eventForm.id)} onCancel={() => setEventForm(blankEvent)} />
+        </form>
+        <ItemList
+          items={content.events}
+          empty="No upcoming events added"
+          onEdit={setEventForm}
+          onDelete={(item) =>
+            confirmDelete("event", item.title, () => {
+              void commitContent({ ...content, events: content.events.filter((entry) => entry.id !== item.id) }, "Event deleted.");
+            })
+          }
+          getTitle={(item) => item.title}
+          getMeta={(item) => `${item.startDate}${item.active ? " · Popup active" : ""}`}
+          getImage={(item) => item.image}
+        />
+      </section>
 
       <section className="grid gap-5 xl:grid-cols-[420px_1fr]">
         <form onSubmit={saveNews} className="panel p-5">
@@ -342,12 +475,13 @@ export function AdminContentManager() {
         <button
           type="button"
           onClick={async () => {
-            if (window.confirm("Restore the default KRSA website content? This will replace edited news, coaches, achievements and gallery records on the live website.")) {
+            if (window.confirm("Restore the default KRSA website content? This will replace edited events, news, coaches, achievements and gallery records on the live website.")) {
               const result = await resetContent();
               setNewsForm(blankNews);
               setAchievementForm(blankAchievement);
               setGalleryForm(blankGallery);
               setCoachForm(blankCoach);
+              setEventForm(blankEvent);
               showStatus(result.ok ? "Default content restored." : result.message || "Defaults restored locally, but live publishing failed.");
             }
           }}
@@ -398,7 +532,7 @@ function ImageUploadField({
   placeholder
 }: {
   label: string;
-  folder: "news" | "coaches" | "achievements" | "gallery";
+  folder: "news" | "coaches" | "achievements" | "gallery" | "events";
   value: string;
   onChange: (image: string) => void;
   placeholder: string;
